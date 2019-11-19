@@ -1,2 +1,3 @@
-# doco
+# 🎒 doco
+
 DOM utility library.

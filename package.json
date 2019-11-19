@@ -1,0 +1,20 @@
+{
+  "name": "@nekobird/doco",
+  "version": "0.0.1",
+  "description": "DOM utility library.",
+  "main": "build/commonjs/doco.js",
+  "module": "build/esm/doco.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nekobird/doco.git"
+  },
+  "author": "Andrew Prasetya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nekobird/doco/issues"
+  },
+  "homepage": "https://github.com/nekobird/doco#readme"
+}
