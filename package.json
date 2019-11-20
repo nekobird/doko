@@ -2,7 +2,7 @@
   "name": "@nekobird/doko",
   "version": "0.0.1",
   "private": false,
-  "description": "DOM utility library.",
+  "description": "A really cool DOM utility library.",
   "homepage": "https://github.com/nekobird/doco#readme",
   "bugs": {
     "url": "https://github.com/nekobird/doco/issues"
