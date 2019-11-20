@@ -1,3 +1,3 @@
-# 👛 doco
+# doco
 
-A really cool DOM utilities library.
+👛 A really cool DOM utilities library.
