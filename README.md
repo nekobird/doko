@@ -1,3 +1,3 @@
 # doko
 
-👛 A really cool DOM utilities library.
+👛 A really cool DOM utility library.
