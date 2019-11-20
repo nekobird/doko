@@ -13,8 +13,17 @@ export interface Size {
   height: number;
 }
 
+export interface Rectangle extends FullOffset, Size {
+  center: Point;
+}
+
 export type Elements = NodeListOf<Element> | Element[] | HTMLElements;
 
 export type HTMLElements = NodeListOf<HTMLElement> | HTMLCollection | HTMLElement[];
 
 export type InputOrTextArea = HTMLTextAreaElement | HTMLInputElement;
+
+export interface Point {
+  x: number;
+  y: number;
+}

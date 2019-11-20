@@ -1,0 +1,137 @@
+// DOMBoxModel is helper function to get data on element box-model.
+// Similar to: https://github.com/InlineManual/dom-box
+import {
+  getBoxSizing,
+} from './style';
+
+export function getTotalHorizontalMargins(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { marginLeft, marginRight } = style;
+
+  const left = marginLeft ? parseFloat(marginLeft) : 0;
+  const right = marginRight ? parseFloat(marginRight) : 0;
+
+  return left + right;
+}
+
+export function getTotalVerticalMargins(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { marginTop, marginBottom } = style;
+
+  const top = marginTop ? parseFloat(marginTop) : 0;
+  const bottom = marginBottom ? parseFloat(marginBottom) : 0;
+
+  return top + bottom;
+}
+
+export function getTotalHorizontalBorderWidths(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { borderLeftWidth, borderRightWidth } = style;
+
+  const left = borderLeftWidth ? parseFloat(borderLeftWidth) : 0;
+  const right = borderRightWidth ? parseFloat(borderRightWidth) : 0;
+
+  return left + right;
+}
+
+export function getTotalVerticalBorderWidths(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { borderTopWidth, borderBottomWidth } = style;
+
+  const top = borderTopWidth ? parseFloat(borderTopWidth) : 0;
+  const bottom = borderBottomWidth ? parseFloat(borderBottomWidth) : 0;
+
+  return top + bottom;
+}
+
+export function getTotalHorizontalPaddings(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { paddingLeft, paddingRight } = style;
+
+  const left = paddingLeft ? parseFloat(paddingLeft) : 0;
+  const right = paddingRight ? parseFloat(paddingRight) : 0;
+
+  return left + right;
+}
+
+export function getTotalVerticalPaddings(element: HTMLElement): number {
+  const style = window.getComputedStyle(element);
+
+  const { paddingTop, paddingBottom } = style;
+
+  const top = paddingTop ? parseFloat(paddingTop) : 0;
+  const bottom = paddingBottom ? parseFloat(paddingBottom) : 0;
+
+  return top + bottom;
+}
+
+export function getTotalHorizontalInnerSpace(element: HTMLElement): number {
+  if (getBoxSizing(element) === 'border-box') {
+    return getTotalHorizontalPaddings(element) + getTotalHorizontalBorderWidths(element);
+  }
+
+  return getTotalHorizontalPaddings(element);
+}
+
+export function getTotalVerticalInnerSpace(element: HTMLElement): number {
+  if (getBoxSizing(element) === 'border-box') {
+    return getTotalVerticalPaddings(element) + getTotalVerticalBorderWidths(element);
+  }
+
+  return getTotalVerticalPaddings(element);
+}
+
+export function getTotalHorizontalOuterSpace(element: HTMLElement): number {
+  if (getBoxSizing(element) === 'content-box') {
+    return getTotalHorizontalMargins(element) + getTotalHorizontalBorderWidths(element);
+  }
+
+  return getTotalHorizontalMargins(element);
+}
+
+export function getTotalVerticalOuterSpace(element: HTMLElement): number {
+  if (getBoxSizing(element) === 'content-box') {
+    return getTotalVerticalMargins(element) + getTotalVerticalBorderWidths(element);
+  }
+
+  return getTotalVerticalMargins(element);
+}
+
+export function getTotalHorizontalDimension(
+  element: HTMLElement,
+  includeTransform: boolean = false,
+): number {
+  let width = element.offsetWidth;
+
+  if (includeTransform === true) {
+    width = element.getBoundingClientRect().width;
+  }
+
+  return width + getTotalHorizontalOuterSpace(element);
+}
+
+export function getTotalVerticalDimension(
+  element: HTMLElement,
+  includeTransform: boolean = false,
+): number {
+  let height = element.offsetHeight;
+  
+  if (includeTransform === true) {
+    height = element.getBoundingClientRect().height;
+  }
+
+  return height + getTotalVerticalOuterSpace(element);
+}
+
+export function getContentWidth(element: HTMLElement): number {
+  return element.offsetWidth - getTotalHorizontalInnerSpace(element);
+}
+
+export function getContentHeight(element: HTMLElement): number {
+  return element.offsetHeight - getTotalVerticalInnerSpace(element);
+}

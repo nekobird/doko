@@ -1,20 +1,47 @@
 {
   "name": "@nekobird/doco",
   "version": "0.0.1",
+  "private": false,
   "description": "DOM utility library.",
-  "main": "build/commonjs/doco.js",
-  "module": "build/esm/doco.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/nekobird/doco#readme",
+  "bugs": {
+    "url": "https://github.com/nekobird/doco/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nekobird/doco.git"
   },
-  "author": "Andrew Prasetya",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nekobird/doco/issues"
+  "author": "Andrew Prasetya",
+  "files": [
+    "build/**/*"
+  ],
+  "sideEffects": false,
+  "main": "build/commonjs/doko.js",
+  "module": "build/esm/doko.js",
+  "jsnext:main": "build/esm/doko.js",
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly --outDir build/types/; rollup -c rollup.config.js",
+    "clean": "rimraf build",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/nekobird/doco#readme"
+  "dependencies": {
+    "@nekobird/piko": "0.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-typescript": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-typescript": "^7.7.2",
+    "rimraf": "^3.0.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.2",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
