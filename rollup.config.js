@@ -8,7 +8,7 @@ import pkg from './package.json';
 const extensions = ['.js', '.ts'];
 
 export default {
-  input: 'source/index.ts',
+  input: 'source/doko.ts',
   output: [
     {
       file: pkg.main,

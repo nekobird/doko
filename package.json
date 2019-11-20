@@ -1,5 +1,5 @@
 {
-  "name": "@nekobird/doco",
+  "name": "@nekobird/doko",
   "version": "0.0.1",
   "private": false,
   "description": "DOM utility library.",
@@ -36,6 +36,7 @@
     "@babel/preset-typescript": "^7.7.2",
     "rimraf": "^3.0.0",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^1.10.0",
