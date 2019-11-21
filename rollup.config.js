@@ -12,7 +12,7 @@ export default {
   output: [
     {
       file: pkg.main,
-      name: 'vector2',
+      name: 'doko',
       format: 'commonjs',
       sourcemap: true,
       plugins: [
