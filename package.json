@@ -22,6 +22,7 @@
   "jsnext:main": "build/esm/doko.js",
   "scripts": {
     "build": "tsc --emitDeclarationOnly --outDir build/types/; rollup -c rollup.config.js",
+    "build:docs": "typedoc --plugin typedoc-plugin-markdown --out docs lib",
     "clean": "rimraf build",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -40,6 +41,8 @@
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^1.10.0",
+    "typedoc": "^0.15.2",
+    "typedoc-plugin-markdown": "^2.2.11",
     "typescript": "^3.7.2"
   },
   "publishConfig": {

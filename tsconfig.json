@@ -22,7 +22,7 @@
     "target": "esnext",
   },
   "include": [
-    "./source/*"
+    "./lib/*"
   ],
   "exclude": [
     "node_modules"
