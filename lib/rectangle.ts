@@ -26,10 +26,8 @@ export function getMinimumBoundingRectangleFromElements(...elements: HTMLElement
 
   for (let i = 0; i < elements.length; i++) {
     const {
-      bottom,
-      left,
-      right,
-      top,
+      top, bottom,
+      left, right
     } = elements[i].getBoundingClientRect();
 
     if (i === 0) {

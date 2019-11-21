@@ -4,10 +4,13 @@ import {
   getBoxSizing,
 } from './style';
 
+/**
+ * 
+ * @param element - Target Element.
+ * @returns The total horizontal margin of the element.
+ */
 export function getTotalHorizontalMargins(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { marginLeft, marginRight } = style;
+  const { marginLeft, marginRight } = window.getComputedStyle(element);
 
   const left = marginLeft ? parseFloat(marginLeft) : 0;
   const right = marginRight ? parseFloat(marginRight) : 0;
@@ -16,9 +19,7 @@ export function getTotalHorizontalMargins(element: HTMLElement): number {
 }
 
 export function getTotalVerticalMargins(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { marginTop, marginBottom } = style;
+  const { marginTop, marginBottom } = window.getComputedStyle(element);
 
   const top = marginTop ? parseFloat(marginTop) : 0;
   const bottom = marginBottom ? parseFloat(marginBottom) : 0;
@@ -27,9 +28,7 @@ export function getTotalVerticalMargins(element: HTMLElement): number {
 }
 
 export function getTotalHorizontalBorderWidths(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { borderLeftWidth, borderRightWidth } = style;
+  const { borderLeftWidth, borderRightWidth } = window.getComputedStyle(element);
 
   const left = borderLeftWidth ? parseFloat(borderLeftWidth) : 0;
   const right = borderRightWidth ? parseFloat(borderRightWidth) : 0;
@@ -38,9 +37,7 @@ export function getTotalHorizontalBorderWidths(element: HTMLElement): number {
 }
 
 export function getTotalVerticalBorderWidths(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { borderTopWidth, borderBottomWidth } = style;
+  const { borderTopWidth, borderBottomWidth } = window.getComputedStyle(element);
 
   const top = borderTopWidth ? parseFloat(borderTopWidth) : 0;
   const bottom = borderBottomWidth ? parseFloat(borderBottomWidth) : 0;
@@ -49,9 +46,7 @@ export function getTotalVerticalBorderWidths(element: HTMLElement): number {
 }
 
 export function getTotalHorizontalPaddings(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { paddingLeft, paddingRight } = style;
+  const { paddingLeft, paddingRight } = window.getComputedStyle(element);
 
   const left = paddingLeft ? parseFloat(paddingLeft) : 0;
   const right = paddingRight ? parseFloat(paddingRight) : 0;
@@ -60,9 +55,7 @@ export function getTotalHorizontalPaddings(element: HTMLElement): number {
 }
 
 export function getTotalVerticalPaddings(element: HTMLElement): number {
-  const style = window.getComputedStyle(element);
-
-  const { paddingTop, paddingBottom } = style;
+  const { paddingTop, paddingBottom } = window.getComputedStyle(element);
 
   const top = paddingTop ? parseFloat(paddingTop) : 0;
   const bottom = paddingBottom ? parseFloat(paddingBottom) : 0;
