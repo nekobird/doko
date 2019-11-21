@@ -201,7 +201,6 @@ export function findAncestorWithId(
   getAllMatchingAncestors: boolean = false,
 ): DOMTraverseResult {
   const identifyElement = element => element.id === id;
-
   return findAncestor(from, identifyElement, getAllMatchingAncestors);
 }
 
@@ -211,7 +210,6 @@ export function findDescendantWithId(
   getAllMatchingDescendants: boolean = false,
 ): DOMTraverseResult {
   const identifyElement = element => element.id === id;
-
   return findDescendant(from, identifyElement, getAllMatchingDescendants);
 }
 
@@ -220,9 +218,7 @@ export function hasAncestor(
   options: Element | Elements,
 ): boolean {
   const candidates = toElementArray(options);
-
   const identifyElement = element => candidates.indexOf(element) !== -1;
-
   return findAncestor(from, identifyElement, false) !== null;
 }
 
@@ -231,9 +227,7 @@ export function hasDescendant(
   options: Element | Elements,
 ): boolean {
   const candidates = toElementArray(options);
-
   const identifyElement = element => candidates.indexOf(element) !== -1;
-
   return findDescendant(from, identifyElement, false) !== null;
 }
 

@@ -36,7 +36,6 @@ export function applyStyle(
   ...c: HTMLElement[]
 ): void {
   let elements = c;
-
   let styleObject;
 
   if (isHTMLElement(a) === true) {
@@ -49,7 +48,6 @@ export function applyStyle(
 
   Object.keys(styleObject).forEach(property => {
     let value = styleObject[property];
-
     const propertyName = kebabCaseToCamelCase(property);
 
     if (typeof value === 'number') {
@@ -80,7 +78,6 @@ export function copyStylesFrom(
   properties.forEach(property => {
     to.forEach(element => {
       property = kebabCaseToCamelCase(property);
-
       element.style[property] = style[property];
     });
   });
@@ -88,7 +85,6 @@ export function copyStylesFrom(
 
 export function getAnimationDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
-
   const value = computedStyle.animationDelay;
 
   if (!value) {
@@ -100,7 +96,6 @@ export function getAnimationDelaysInSeconds(element: HTMLElement): number[] {
 
 export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
-
   const value = computedStyle.animationDuration;
 
   if (!value) {
@@ -138,7 +133,6 @@ export function getChildrenMaxAnimationDuration(
     element => {
       if (isHTMLElement(element) === true) {
         const _element = element as HTMLElement;
-
         let duration;
 
         if (withDelay === true) {
@@ -164,7 +158,6 @@ export function getLineHeight(element: HTMLElement): number {
 
   temp.style.padding = '0';
   temp.style.visibility = 'none';
-
   temp.textContent = 'abcd';
 
   copyStylesFrom(
@@ -181,15 +174,11 @@ export function getLineHeight(element: HTMLElement): number {
 
   if (element.parentNode) {
     element.parentNode.appendChild(temp);
-
     result = temp.clientHeight;
-
     element.parentNode.removeChild(temp);
   } else {
     document.appendChild(temp);
-
     result = temp.clientHeight;
-
     document.removeChild(temp);
   }
 
@@ -208,9 +197,7 @@ export function getMaxAnimationDurationInSeconds(element: HTMLElement): number {
 
 export function getMaxAnimationDurationWithDelayInSeconds(element: HTMLElement): number {
   const delays = getAnimationDelaysInSeconds(element);
-
   const durations = getAnimationDurationsInSeconds(element);
-
   return Math.max(...sumNumberArrays(delays, durations));
 }
 
@@ -224,9 +211,7 @@ export function getMaxTransitionDurationInSeconds(element: HTMLElement): number 
 
 export function getMaxTransitionDurationWithDelayInSeconds(element: HTMLElement): number {
   const delays = getTransitionDelaysInSeconds(element);
-
   const durations = getTransitionDurationsInSeconds(element);
-
   return Math.max(...sumNumberArrays(delays, durations));
 }
 
@@ -241,7 +226,6 @@ export function getParentsMaxAnimationDuration(
     element => {
       if (isHTMLElement(element) === true) {
         const _element = element as HTMLElement;
-
         let duration;
 
         if (withDelay === true) {
@@ -264,9 +248,7 @@ export function getStyleValue(
   stringOnly: boolean = false,
 ): string | number {
   const style = window.getComputedStyle(element);
-
   property = kebabCaseToCamelCase(property);
-
   const value = style[property];
 
   if (
@@ -289,12 +271,10 @@ export function getStyleValues(
   }
 
   const style = window.getComputedStyle(element);
-
   const result = {};
 
   properties.forEach(property => {
     property = kebabCaseToCamelCase(property);
-
     const value = style[property];
 
     if (
@@ -312,7 +292,6 @@ export function getStyleValues(
 
 export function getTransitionDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
-
   const value = computedStyle.transitionDelay;
 
   if (!value) {
@@ -324,7 +303,6 @@ export function getTransitionDelaysInSeconds(element: HTMLElement): number[] {
 
 export function getTransitionDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
-
   const value = computedStyle.transitionDuration;
 
   if (!value) {
@@ -344,7 +322,6 @@ export function removeStyles(
 
   properties.forEach(property => {
     property = kebabCaseToCamelCase(property);
-
     element.style.removeProperty(property);
   });
 }

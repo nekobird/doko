@@ -14,13 +14,10 @@ export function getMinimumBoundingRectangleFromElements(...elements: HTMLElement
   const result = {
     top: 0,
     bottom: 0,
-
     left: 0,
     right: 0,
-
     width: 0,
     height: 0,
-
     center: {
       x: 0,
       y: 0,
@@ -60,7 +57,7 @@ export function getMinimumBoundingRectangleFromElements(...elements: HTMLElement
   }
 
   result.width  = getEuclideanDistance(result.left, result.right);
-  result.height = getEuclideanDistance(result.top, result.bottom);
+  result.height = getEuclideanDistance(result.top,  result.bottom);
 
   result.center = {
     x: result.left + result.width  / 2,
@@ -93,10 +90,10 @@ export function getTwoElementRectanglesOverlappingArea(
   const rect2 = element2.getBoundingClientRect();
 
   if (twoElementRectanglesAreOverlapping(element1, element2) === true) {
-    const top    = Math.max(rect1.top,    rect2.top);
+    const top    = Math.max(rect1.top, rect2.top);
     const bottom = Math.min(rect1.bottom, rect2.bottom);
 
-    const left  = Math.max(rect1.left,  rect2.left);
+    const left  = Math.max(rect1.left, rect2.left);
     const right = Math.min(rect1.right, rect2.right);
 
     const width  = getEuclideanDistance(left, right);

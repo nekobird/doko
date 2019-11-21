@@ -1,5 +1,6 @@
 import {
   Point,
+  PointLike,
 } from './interfaces';
 
 import {
@@ -18,7 +19,7 @@ interface IdentifiyElementFunction {
 // Offset is relative to Point.
 export function getElementOffsetFromPoint(
   element: HTMLElement,
-  { x, y }: Point,
+  { x, y }: PointLike,
 ): Point {
   const { left, top } = element.getBoundingClientRect();
 
@@ -95,7 +96,7 @@ export function getElementRightPoints(element: HTMLElement): Point[] {
 
 export function isElementAbovePoints(
   element: HTMLElement,
-  points: Point | Point[],
+  points: PointLike | PointLike[],
   offset: number = 0,
 ) {
   const { bottom } = element.getBoundingClientRect();
@@ -121,7 +122,7 @@ export function isElementAbovePoints(
 
 export function isElementBelowPoints(
   element: HTMLElement,
-  points: Point | Point[],
+  points: PointLike | PointLike[],
   offset: number = 0,
 ) {
   const { top } = element.getBoundingClientRect();
@@ -143,7 +144,7 @@ export function isElementBelowPoints(
 
 export function isElementCenterAbovePoints(
   element: HTMLElement,
-  points: Point | Point[],
+  points: PointLike | PointLike[],
   offset: number = 0,
 ) {
   const centerPoint = getElementCenterPoint(element);
@@ -165,7 +166,7 @@ export function isElementCenterAbovePoints(
 
 export function isElementCenterBelowPoints(
   element: HTMLElement,
-  points: Point | Point[],
+  points: PointLike | PointLike[],
   offset: number = 0,
 ) {
   const centerPoint = getElementCenterPoint(element);
@@ -187,7 +188,7 @@ export function isElementCenterBelowPoints(
 
 export function getClosestDistanceFromElementCornersToPoint(
   element: HTMLElement,
-  point: Point,
+  point: PointLike,
 ): number {
   const corners = getElementCornerPoints(element);
 
@@ -206,14 +207,17 @@ export function getDistanceFromElementCenterToPoint(element: HTMLElement, point:
 
 // Point is relative to viewport. (clientX, clientY)
 
-export function pointIsInElement({ x, y }: Point, element: HTMLElement): boolean {
+export function pointIsInElement(
+  { x, y }: PointLike,
+  element: HTMLElement
+): boolean {
   return document
     .elementsFromPoint(x, y)
     .indexOf(element) !== -1;
 }
 
 export function findElementFromPoint(
-  { x, y }: Point,
+  { x, y }: PointLike,
   identifiyElementFunction?: IdentifiyElementFunction,
   getAll: boolean = true,
 ): HTMLElement | HTMLElement[] | false {
@@ -254,7 +258,7 @@ export function findElementFromPoint(
 
 export function getClosestChildFromPoints(
   parent: HTMLElement,
-  points: Point | Point[],
+  points: PointLike | PointLike[],
   identifiyElementFunction?: IdentifiyElementFunction,
 ): HTMLElement | false {
   if (typeof identifiyElementFunction === 'undefined') {

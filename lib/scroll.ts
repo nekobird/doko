@@ -17,7 +17,6 @@ import {
 
 export function getScrollLeftToElement(...elements: HTMLElement[]): number {
   let rect;
-
   let left = 0;
 
   if (elements.length > 1) {
@@ -35,7 +34,6 @@ export function getScrollLeftToElement(...elements: HTMLElement[]): number {
 
 export function getScrollTopToElement(...elements: HTMLElement[]): number {
   let rect;
-
   let top = 0;
 
   if (elements.length > 1) {
@@ -53,9 +51,7 @@ export function getScrollTopToElement(...elements: HTMLElement[]): number {
 
 export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): number {
   let rect;
-
   let left = 0;
-
   let width = 0;
 
   if (elements.length > 1) {
@@ -66,7 +62,6 @@ export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): 
 
   if (rect !== false) {
     left = rect.left;
-
     width = rect.width;
   }
 
@@ -75,9 +70,7 @@ export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): 
 
 export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): number {
   let rect;
-
   let top = 0;
-
   let height = 0;
 
   if (elements.length > 1) {
@@ -88,7 +81,6 @@ export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): n
 
   if (rect !== false) {
     top = rect.top;
-
     height = rect.height;
   }
 

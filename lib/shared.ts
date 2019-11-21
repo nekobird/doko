@@ -4,6 +4,7 @@ import {
 
 import {
   Point,
+  PointLike,
 } from './interfaces';
 
 export function scrollLeft(): number {
@@ -28,18 +29,18 @@ export function scrollTop(): number {
     || 0;
 }
 
-export function getLengthFromOrigin(point: Point): number {
+export function getLengthFromOrigin(point: PointLike): number {
   return hypotenuse(point.x, point.y);
 }
 
-export function getDistanceFromPointToPoint(from: Point, to: Point): number {
+export function getDistanceFromPointToPoint(from: PointLike, to: PointLike): number {
   const difference = subtractPoint(from, to, true);
   return getLengthFromOrigin(difference);
 }
 
 export function subtractPoint(
-  from: Point,
-  by: Point,
+  from: PointLike,
+  by: PointLike,
   mutate: boolean = false,
 ): Point {
   const x = from.x - by.x;
