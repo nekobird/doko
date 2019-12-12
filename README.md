@@ -2,4 +2,4 @@
 
 A really cool DOM utility library.
 
-`npm i doko`
+`npm i @nekobird/doko`
