@@ -18,12 +18,12 @@ export function getLeftTopOfElement(element: HTMLElement): [number, number] {
 
 export function getElementOffsetFromAnotherElement(from: HTMLElement, to: HTMLElement): FullOffset {
   const fromRect = from.getBoundingClientRect();
-  const toRect   = to.getBoundingClientRect();
+  const toRect = to.getBoundingClientRect();
 
-  const top    = getEuclideanDistance(fromRect.top,    toRect.top);
+  const top = getEuclideanDistance(fromRect.top, toRect.top);
   const bottom = getEuclideanDistance(fromRect.bottom, toRect.bottom);
 
-  const left  = getEuclideanDistance(fromRect.left,  toRect.left);
+  const left = getEuclideanDistance(fromRect.left, toRect.left);
   const right = getEuclideanDistance(fromRect.right, toRect.right);
 
   return { top, bottom, left, right };
@@ -32,10 +32,10 @@ export function getElementOffsetFromAnotherElement(from: HTMLElement, to: HTMLEl
 export function getElementOffsetFromDocument(element: HTMLElement): FullOffset {
   const rect = element.getBoundingClientRect();
 
-  const top    = rect.top    + scrollTop();
+  const top = rect.top + scrollTop();
   const bottom = rect.bottom + scrollTop();
 
-  const left  = rect.left  + scrollLeft();
+  const left = rect.left + scrollLeft();
   const right = rect.right + scrollLeft();
 
   return { top, bottom, left, right };
