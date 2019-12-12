@@ -25,7 +25,7 @@ export function getElementOffsetFromPoint(
 
   return {
     x: getEuclideanDistance(left, x),
-    y: getEuclideanDistance(top,  y),
+    y: getEuclideanDistance(top, y),
   };
 }
 
