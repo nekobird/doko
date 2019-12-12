@@ -11,6 +11,11 @@ import {
   scrollTop,
 } from './shared';
 
+export function getLeftTopOfElement(element: HTMLElement): [number, number] {
+  const { left, top } = element.getBoundingClientRect();
+  return [left, top];
+}
+
 export function getElementOffsetFromAnotherElement(from: HTMLElement, to: HTMLElement): FullOffset {
   const fromRect = from.getBoundingClientRect();
   const toRect   = to.getBoundingClientRect();
