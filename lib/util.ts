@@ -8,14 +8,14 @@ export function isElement(...things: any[]): boolean {
     return false;
   }
 
-  const isElement = thing => {
+  const isElement = (thing: any): thing is Element => {
     return (
       thing
       && typeof thing === 'object'
       && typeof thing.nodeType === 'number'
       && thing.nodeType === 1
       && thing instanceof Element === true
-    )
+    );
   }
 
   return things.every(isElement);
@@ -26,7 +26,7 @@ export function isNodeListOfElement(...things: any[]): boolean {
     return false;
   }
 
-  const isNodeListOfElement = thing => {
+  const isNodeListOfElement = (thing: any): thing is NodeListOf<Element> => {
     return (
       thing
       && typeof thing === 'object'
@@ -65,14 +65,14 @@ export function isHTMLElement(...things: any[]): boolean {
     return false;
   }
 
-  const isHTMLElement = thing => {
+  const isHTMLElement = (thing: any): thing is HTMLElement => {
     return (
       thing
       && typeof thing === 'object'
       && typeof thing.nodeType === 'number'
       && thing.nodeType === 1
       && thing instanceof HTMLElement === true
-    )
+    );
   }
 
   return things.every(isHTMLElement);
@@ -83,7 +83,7 @@ export function isNodeListOfHTMLElement(...things: any[]): boolean {
     return false;
   }
 
-  const isNodeListOfHTMLElement = thing => {
+  const isNodeListOfHTMLElement = (thing: any): thing is NodeListOf<HTMLElement> => {
     return (
       thing
       && typeof thing === 'object'
@@ -100,7 +100,7 @@ export function isHTMLCollection(...things: any[]): boolean {
     return false;
   }
 
-  const isHTMLCollection = thing => {
+  const isHTMLCollection = (thing: any): thing is HTMLCollection => {
     return (
       thing
       && typeof thing === 'object'
@@ -140,7 +140,7 @@ export function isInputOrTextArea(...things: any[]): boolean {
     return false;
   }
 
-  const isInputOrTextArea = thing => {
+  const isInputOrTextArea = (thing: any): thing is HTMLInputElement | HTMLTextAreaElement => {
     return (
       thing
       && typeof thing === 'object'
