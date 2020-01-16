@@ -44,14 +44,12 @@ let scrollY: number;
 
 export class Viewport {
   public static setScrollToggleElement(element: HTMLElement) {
-    if (
+    scrollToggleElement = (
       isHTMLElement(element) === true
       && scrollingIsDisabled === false
-    ) {
-      scrollToggleElement = element;
-    } else {
-      scrollToggleElement = document.body;
-    }
+    )
+      ? element
+      : document.body;
   }
 
   public static get scrollingIsEnabled(): boolean {

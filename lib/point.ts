@@ -192,9 +192,9 @@ export function getClosestDistanceFromElementCornersToPoint(
 ): number {
   const corners = getElementCornerPoints(element);
 
-  const distances = corners.map(corner => {
-    return getDistanceFromPointToPoint(corner, point);
-  });
+  const distances = corners.map(corner => (
+    getDistanceFromPointToPoint(corner, point)
+  ));
 
   return Math.min(...distances);
 }
@@ -229,11 +229,9 @@ export function findElementFromPoint(
 
   let identifyElement;
 
-  if (typeof identifiyElementFunction === 'undefined') {
-    identifyElement = () => true;
-  } else {
-    identifyElement = identifiyElementFunction;
-  }
+  identifyElement = typeof identifiyElementFunction === 'undefined'
+    ? () => true
+    : identifiyElementFunction;
 
   let results: HTMLElement[] = [];
 

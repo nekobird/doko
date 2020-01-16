@@ -19,11 +19,9 @@ export function getScrollLeftToElement(...elements: HTMLElement[]): number {
   let rect;
   let left = 0;
 
-  if (elements.length > 1) {
-    rect = getMinimumBoundingRectangleFromElements(...elements);
-  } else {
-    rect = elements[0].getBoundingClientRect();
-  }
+  rect = elements.length > 1
+    ? getMinimumBoundingRectangleFromElements(...elements)
+    : elements[0].getBoundingClientRect();
 
   if (rect !== false) {
     left = rect.left;
@@ -36,11 +34,9 @@ export function getScrollTopToElement(...elements: HTMLElement[]): number {
   let rect;
   let top = 0;
 
-  if (elements.length > 1) {
-    rect = getMinimumBoundingRectangleFromElements(...elements);
-  } else {
-    rect = elements[0].getBoundingClientRect();
-  }
+  rect = elements.length > 1
+    ? getMinimumBoundingRectangleFromElements(...elements)
+    : elements[0].getBoundingClientRect();
 
   if (rect !== false) {
     top = rect.top;
@@ -54,11 +50,9 @@ export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): 
   let left = 0;
   let width = 0;
 
-  if (elements.length > 1) {
-    rect = getMinimumBoundingRectangleFromElements(...elements);
-  } else {
-    rect = elements[0].getBoundingClientRect();
-  }
+  rect = elements.length > 1
+    ? getMinimumBoundingRectangleFromElements(...elements)
+    : elements[0].getBoundingClientRect();
 
   if (rect !== false) {
     left = rect.left;
@@ -73,11 +67,9 @@ export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): n
   let top = 0;
   let height = 0;
 
-  if (elements.length > 1) {
-    rect = getMinimumBoundingRectangleFromElements(...elements);
-  } else {
-    rect = elements[0].getBoundingClientRect();
-  }
+  rect = elements.length > 1
+    ? getMinimumBoundingRectangleFromElements(...elements)
+    : elements[0].getBoundingClientRect();
 
   if (rect !== false) {
     top = rect.top;

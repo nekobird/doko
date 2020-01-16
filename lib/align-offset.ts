@@ -119,37 +119,29 @@ export function getComplementaryReferencePoint(
   }
 
   switch (referencePoint) {
-    case 'top-left': {
+    case 'top-left':
       return 'bottom-right';
-    }
 
-    case 'top': {
+    case 'top':
       return 'bottom';
-    }
 
-    case 'top-right': {
+    case 'top-right':
       return 'bottom-left';
-    }
 
-    case 'left': {
+    case 'left':
       return 'right';
-    }
 
-    case 'right': {
+    case 'right':
       return 'left';
-    }
 
-    case 'bottom-left': {
+    case 'bottom-left':
       return 'top-right';
-    }
 
-    case 'bottom': {
+    case 'bottom':
       return 'top';
-    }
 
-    case 'bottom-right': {
+    case 'bottom-right':
       return 'top-left';
-    }
   }
 }
 

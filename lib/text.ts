@@ -118,20 +118,16 @@ export function getTextBoxHeightFromElement(
     transformText = transformTextHook as (text: string) => string;
   }
 
-  if (typeof text === 'string') {
-    modelElement.value = transformText(text);
-  } else {
-    modelElement.value = transformText(getTextFromElement(element));
-  }
+  modelElement.value = typeof text === 'string'
+    ? transformText(text)
+    : transformText(getTextFromElement(element));
 
   // Set offset for when boxSizing is set to border-box.
   let offset = 0;
 
-  if (getBoxSizing(element) === 'border-box') {
-    offset = getTotalVerticalBorderWidths(element);
-  } else {
-    offset -= getTotalVerticalPaddings(element);
-  }
+  offset = getBoxSizing(element) === 'border-box'
+    ? getTotalVerticalBorderWidths(element)
+    : offset - getTotalVerticalPaddings(element);
 
   document.body.appendChild(modelElement);
 
@@ -188,15 +184,14 @@ export function getTextBoxWidthFromElement(
     transformText = transformTextHook as (text: string) => string;
   }
 
-  if (typeof text === 'string') {
-    textString = transformText(text);
-  } else {
-    textString = transformText(getTextFromElement(element));
-  }
+  textString = typeof text === 'string'
+    ? transformText(text)
+    : transformText(getTextFromElement(element));
 
-  textString = textString.replace(/[\n\r]/g, '<br>');
-  textString = textString.replace(/[\t]/g, '&#9');
-  textString = textString.replace(/[\s]/g, '&nbsp');
+  textString = textString
+    .replace(/[\n\r]/g, '<br>')
+    .replace(/[\t]/g, '&#9')
+    .replace(/[\s]/g, '&nbsp');
 
   modelElement.innerHTML = textString;
 
@@ -224,13 +219,9 @@ export function getTextFromElement(element: HTMLElement): string {
 }
 
 export function setElementText(element: HTMLElement, text: string) {
-  if (isInputOrTextArea(element) === true) {
-    const input = element as InputOrTextArea;
-
-    input.value = text;
-  } else {
-    element.textContent = text;
-  }
+  isInputOrTextArea(element)
+    ? (element as InputOrTextArea).value = text
+    : element.textContent = text;
 }
 
 export function getLastLine(element: HTMLElement): string {
@@ -256,11 +247,9 @@ export function getLastLine(element: HTMLElement): string {
 
     temp.textContent = text;
 
-    if (element.parentNode) {
-      element.parentNode.appendChild(temp);
-    } else {
-      document.appendChild(temp);
-    }
+    element.parentNode
+      ? element.parentNode.appendChild(temp)
+      : document.appendChild(temp);
 
     const startingHeight = temp.clientHeight;
 
@@ -286,11 +275,9 @@ export function getLastLine(element: HTMLElement): string {
       index--;
     }
 
-    if (element.parentNode) {
-      element.parentNode.removeChild(temp);
-    } else {
-      document.removeChild(temp);
-    }
+    element.parentNode
+      ? element.parentNode.removeChild(temp)
+      : document.removeChild(temp);
 
     return lastLine.join(' ');
   }

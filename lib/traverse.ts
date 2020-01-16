@@ -296,9 +296,9 @@ export function findNextSibling(
       && identifyElement(element) === true
     ) {
       return element;
-    } else {
-      nextSibling = element.nextElementSibling;
     }
+
+    nextSibling = element.nextElementSibling;
   }
 
   return null;
@@ -356,11 +356,9 @@ export function getNthChild(
 
   let result;
 
-  if (n === 'last') {
-    result = selectedChildren[selectedChildren.length - 1];
-  } else {
-    result = selectedChildren[n];
-  }
+  result = n === 'last'
+    ? selectedChildren[selectedChildren.length - 1]
+    : selectedChildren[n];
 
   return typeof result === 'object' ? result : null;
 }

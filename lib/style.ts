@@ -108,14 +108,12 @@ export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
 export function getBaseFontSize(): number {
   const fontSize = window.getComputedStyle(document.documentElement).fontSize;
 
-  if (
+  return (
     typeof fontSize === 'string'
     && fontSize.match(/^[0-9]+/g) !== null
-  ) {
-    return parseFloat(fontSize);
-  }
-
-  return 16;
+  )
+    ? parseFloat(fontSize)
+    : 16;
 }
 
 export function getBoxSizing(element: HTMLElement): string {
@@ -135,11 +133,9 @@ export function getChildrenMaxAnimationDuration(
         const _element = element as HTMLElement;
         let duration;
 
-        if (withDelay === true) {
-          duration = getMaxAnimationDurationInSeconds(_element);
-        } else {
-          duration = getMaxAnimationDurationWithDelayInSeconds(_element);
-        }
+        duration = withDelay === true
+          ? getMaxAnimationDurationInSeconds(_element)
+          : getMaxAnimationDurationWithDelayInSeconds(_element);
 
         durations.push(duration);
       }
@@ -228,11 +224,9 @@ export function getParentsMaxAnimationDuration(
         const _element = element as HTMLElement;
         let duration;
 
-        if (withDelay === true) {
-          duration = getMaxAnimationDurationWithDelayInSeconds(_element);
-        } else {
-          duration = getMaxAnimationDurationInSeconds(_element);
-        }
+        duration = withDelay === true
+          ? getMaxAnimationDurationWithDelayInSeconds(_element)
+          : getMaxAnimationDurationInSeconds(_element);
 
         durations.push(duration);
       }
@@ -251,14 +245,12 @@ export function getStyleValue(
   property = kebabCaseToCamelCase(property);
   const value = style[property];
 
-  if (
+  return (
     stringOnly === false
     && value.match(/^[0-9]+/g)
-  ) {
-    return parseFloat(value);
-  }
-
-  return value;
+  ) 
+    ? parseFloat(value)
+    : value;
 }
 
 export function getStyleValues(
@@ -271,45 +263,38 @@ export function getStyleValues(
   }
 
   const style = window.getComputedStyle(element);
-  const result = {};
 
-  properties.forEach(property => {
-    property = kebabCaseToCamelCase(property);
-    const value = style[property];
+  return properties.reduce((result, property) => {
+    const _property = kebabCaseToCamelCase(property);
+    const value = style[_property];
 
-    if (
+    result[_property] = (
       stringOnly === false
       && value.match(/^[0-9]+/g)
-    ) {
-      result[property] = parseFloat(value);
-    } else {
-      result[property] = value
-    }
-  });
+    ) 
+      ? parseFloat(value)
+      : value;
 
-  return result;
+    return result;
+  }, {});
 }
 
 export function getTransitionDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.transitionDelay;
 
-  if (!value) {
-    return [0];
-  }
-
-  return value.split(',').map(delay => parseFloat(delay) * 1000);
+  return value
+    ? value.split(',').map(delay => parseFloat(delay) * 1000)
+    : [0];
 }
 
 export function getTransitionDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.transitionDuration;
 
-  if (!value) {
-    return [0];
-  }
-
-  return value.split(',').map(duration => parseFloat(duration) * 1000);
+  return value
+    ? value.split(',').map(duration => parseFloat(duration) * 1000)
+    : [0];
 }
 
 export function removeStyles(

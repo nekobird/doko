@@ -64,35 +64,27 @@ export function getTotalVerticalPaddings(element: HTMLElement): number {
 }
 
 export function getTotalHorizontalInnerSpace(element: HTMLElement): number {
-  if (getBoxSizing(element) === 'border-box') {
-    return getTotalHorizontalPaddings(element) + getTotalHorizontalBorderWidths(element);
-  }
-
-  return getTotalHorizontalPaddings(element);
+  return getBoxSizing(element) === 'border-box'
+    ? getTotalHorizontalPaddings(element) + getTotalHorizontalBorderWidths(element)
+    : getTotalHorizontalPaddings(element);
 }
 
 export function getTotalVerticalInnerSpace(element: HTMLElement): number {
-  if (getBoxSizing(element) === 'border-box') {
-    return getTotalVerticalPaddings(element) + getTotalVerticalBorderWidths(element);
-  }
-
-  return getTotalVerticalPaddings(element);
+  return getBoxSizing(element) === 'border-box'
+    ? getTotalVerticalPaddings(element) + getTotalVerticalBorderWidths(element)
+    : getTotalVerticalPaddings(element);
 }
 
 export function getTotalHorizontalOuterSpace(element: HTMLElement): number {
-  if (getBoxSizing(element) === 'content-box') {
-    return getTotalHorizontalMargins(element) + getTotalHorizontalBorderWidths(element);
-  }
-
-  return getTotalHorizontalMargins(element);
+  return getBoxSizing(element) === 'content-box'
+    ? getTotalHorizontalMargins(element) + getTotalHorizontalBorderWidths(element)
+    : getTotalHorizontalMargins(element);
 }
 
 export function getTotalVerticalOuterSpace(element: HTMLElement): number {
-  if (getBoxSizing(element) === 'content-box') {
-    return getTotalVerticalMargins(element) + getTotalVerticalBorderWidths(element);
-  }
-
-  return getTotalVerticalMargins(element);
+  return getBoxSizing(element) === 'content-box'
+    ? getTotalVerticalMargins(element) + getTotalVerticalBorderWidths(element)
+    : getTotalVerticalMargins(element);
 }
 
 export function getTotalHorizontalDimension(
