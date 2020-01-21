@@ -102,22 +102,17 @@ export function isHTMLCollection(...things: any[]): boolean {
 }
 
 export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLElement[] {
-  if (
-    isNodeListOfHTMLElement(elements) === true
-    || isHTMLCollection(elements) === true
-  ) {
+  if (isNodeListOfHTMLElement(elements) || isHTMLCollection(elements)) {
     elements = elements as NodeListOf<HTMLElement> | HTMLCollection;
 
     return [...elements] as HTMLElement[];
-  } else if (
-    isHTMLElement(elements) === true
-  ) {
+  } else if (isHTMLElement(elements)) {
     const element = elements as HTMLElement;
 
     return [element];
   } else if (
-    Array.isArray(elements) === true
-    && isHTMLElement(...elements as unknown[]) === true
+    Array.isArray(elements)
+    && isHTMLElement(...elements as unknown[])
   ) {
     return elements as HTMLElement[];
   }

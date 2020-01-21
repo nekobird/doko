@@ -14,7 +14,7 @@ export function loadImageFromSource(source: string): Promise<DOMImagePromiseValu
     const image = new Image();
 
     image.addEventListener('load', () => {
-      const width = image.width;
+      const width  = image.width;
       const height = image.height;
 
       resolve({ image, source, width, height });
@@ -47,14 +47,14 @@ export function getImageSizeFromSource(
     const intervalId = setInterval(
       () => {
         if (
-          typeof image.naturalWidth === 'number'
+             typeof image.naturalWidth  === 'number'
           && typeof image.naturalHeight === 'number'
         ) {
           clearTimeout(timeoutId);
           clearInterval(intervalId);
 
           resolve({
-            width: image.naturalWidth,
+            width:  image.naturalWidth,
             height: image.naturalHeight,
           });
         }

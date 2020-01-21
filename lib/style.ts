@@ -48,6 +48,7 @@ export function applyStyle(
 
   Object.keys(styleObject).forEach(property => {
     let value = styleObject[property];
+
     const propertyName = kebabCaseToCamelCase(property);
 
     if (typeof value === 'number') {
@@ -129,13 +130,10 @@ export function getChildrenMaxAnimationDuration(
   descendFrom(
     from,
     element => {
-      if (isHTMLElement(element) === true) {
-        const _element = element as HTMLElement;
-        let duration;
-
-        duration = withDelay === true
-          ? getMaxAnimationDurationInSeconds(_element)
-          : getMaxAnimationDurationWithDelayInSeconds(_element);
+      if (isHTMLElement(element)) {
+        const duration = withDelay === true
+          ? getMaxAnimationDurationInSeconds(element as HTMLElement)
+          : getMaxAnimationDurationWithDelayInSeconds(element as HTMLElement);
 
         durations.push(duration);
       }
@@ -221,12 +219,9 @@ export function getParentsMaxAnimationDuration(
     from,
     element => {
       if (isHTMLElement(element) === true) {
-        const _element = element as HTMLElement;
-        let duration;
-
-        duration = withDelay === true
-          ? getMaxAnimationDurationWithDelayInSeconds(_element)
-          : getMaxAnimationDurationInSeconds(_element);
+        const duration = withDelay === true
+          ? getMaxAnimationDurationWithDelayInSeconds(element as HTMLElement)
+          : getMaxAnimationDurationInSeconds(element as HTMLElement);
 
         durations.push(duration);
       }
@@ -241,14 +236,11 @@ export function getStyleValue(
   property: string,
   stringOnly: boolean = false,
 ): string | number {
-  const style = window.getComputedStyle(element);
-  property = kebabCaseToCamelCase(property);
-  const value = style[property];
+  const style     = window.getComputedStyle(element);
+  const _property = kebabCaseToCamelCase(property);
+  const value     = style[_property];
 
-  return (
-    stringOnly === false
-    && value.match(/^[0-9]+/g)
-  ) 
+  return !stringOnly && value.match(/^[0-9]+/g)
     ? parseFloat(value)
     : value;
 }
@@ -268,10 +260,7 @@ export function getStyleValues(
     const _property = kebabCaseToCamelCase(property);
     const value = style[_property];
 
-    result[_property] = (
-      stringOnly === false
-      && value.match(/^[0-9]+/g)
-    ) 
+    result[_property] = stringOnly === false && value.match(/^[0-9]+/g)
       ? parseFloat(value)
       : value;
 
