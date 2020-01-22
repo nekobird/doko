@@ -207,8 +207,8 @@ export function getTextBoxWidthFromElement(
 }
 
 export function getTextFromElement(element: HTMLElement): string {
-  if (isInputOrTextArea(element) === true) {
-    return (element as InputOrTextArea).value;
+  if (isInputOrTextArea(element)) {
+    return element.value;
   }
 
   if (element.textContent !== null) {
@@ -220,7 +220,7 @@ export function getTextFromElement(element: HTMLElement): string {
 
 export function setElementText(element: HTMLElement, text: string) {
   isInputOrTextArea(element)
-    ? (element as InputOrTextArea).value = text
+    ? element.value = text
     : element.textContent = text;
 }
 

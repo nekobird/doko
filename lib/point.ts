@@ -171,10 +171,10 @@ export function isElementCenterBelowPoints(
 ) {
   const centerPoint = getElementCenterPoint(element);
 
-  if (Array.isArray(points) === true) {
+  if (Array.isArray(points)) {
     let isBelowPoint = true;
 
-    (points as Point[]).forEach(({ y }) => {
+    points.forEach(({ y }) => {
       if (centerPoint.y + offset < y === false) {
         isBelowPoint = false;
       }
@@ -183,7 +183,7 @@ export function isElementCenterBelowPoints(
     return isBelowPoint;
   }
 
-  return centerPoint.y + offset < (points as Point).y;
+  return centerPoint.y + offset < points.y;
 }
 
 export function getClosestDistanceFromElementCornersToPoint(
@@ -236,7 +236,7 @@ export function findElementFromPoint(
   let results: HTMLElement[] = [];
 
   elements.forEach(element => {
-    if (identifyElement(element as HTMLElement) === true) {
+    if (identifyElement(element) === true) {
       results.push(element as HTMLElement);
     }
   });
@@ -272,15 +272,15 @@ export function getClosestChildFromPoints(
   }
 
   const distances = selectedChildren.map(item => {
-    if (Array.isArray(points) === true) {
-      const distances = (points as Point[]).map(point =>
-        getClosestDistanceFromElementCornersToPoint(item, point),
+    if (Array.isArray(points)) {
+      const distances = points.map(
+        point => getClosestDistanceFromElementCornersToPoint(item, point)
       );
 
       return Math.min(...distances);
-    } else {
-      return getClosestDistanceFromElementCornersToPoint(item, points as Point);
     }
+
+    return getClosestDistanceFromElementCornersToPoint(item, points);
   });
 
   const closesDistanceIndex = distances.indexOf(Math.min(...distances));

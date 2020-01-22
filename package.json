@@ -28,20 +28,23 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@nekobird/piko": "0.0.5"
+    "@nekobird/piko": "0.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/plugin-transform-typescript": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
+    "@types/jest": "^24.9.0",
+    "jest": "^25.1.0",
     "rimraf": "^3.0.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^24.3.0",
     "tslib": "^1.10.0",
-    "typedoc": "^0.16.7",
+    "typedoc": "^0.16.8",
     "typedoc-plugin-markdown": "^2.2.16",
     "typescript": "^3.7.5"
   },

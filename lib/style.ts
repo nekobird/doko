@@ -38,12 +38,12 @@ export function applyStyle(
   let elements = c;
   let styleObject;
 
-  if (isHTMLElement(a) === true) {
-    elements.push(a as HTMLElement);
-    styleObject = b as StyleObject;
-  } else if (isHTMLElement(b) === true) {
-    styleObject = a as StyleObject;
-    elements.push(b as HTMLElement);
+  if (isHTMLElement(a)) {
+    elements.push(a);
+    styleObject = b;
+  } else if (isHTMLElement(b)) {
+    styleObject = a;
+    elements.push(b);
   }
 
   Object.keys(styleObject).forEach(property => {
@@ -132,8 +132,8 @@ export function getChildrenMaxAnimationDuration(
     element => {
       if (isHTMLElement(element)) {
         const duration = withDelay === true
-          ? getMaxAnimationDurationInSeconds(element as HTMLElement)
-          : getMaxAnimationDurationWithDelayInSeconds(element as HTMLElement);
+          ? getMaxAnimationDurationInSeconds(element)
+          : getMaxAnimationDurationWithDelayInSeconds(element);
 
         durations.push(duration);
       }
@@ -218,10 +218,10 @@ export function getParentsMaxAnimationDuration(
   ascendFrom(
     from,
     element => {
-      if (isHTMLElement(element) === true) {
+      if (isHTMLElement(element)) {
         const duration = withDelay === true
-          ? getMaxAnimationDurationWithDelayInSeconds(element as HTMLElement)
-          : getMaxAnimationDurationInSeconds(element as HTMLElement);
+          ? getMaxAnimationDurationWithDelayInSeconds(element)
+          : getMaxAnimationDurationInSeconds(element);
 
         durations.push(duration);
       }

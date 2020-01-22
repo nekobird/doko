@@ -3,6 +3,8 @@ import {
   HTMLElements,
 } from './interfaces';
 
+export function isElement(thing: any): thing is Element;
+export function isElement(...things: any[]): boolean;
 export function isElement(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
@@ -10,15 +12,16 @@ export function isElement(...things: any[]): boolean {
 
   const isElement = (thing: any): thing is Element => (
     thing
-    && typeof thing === 'object'
-    && typeof thing.nodeType === 'number'
+    && typeof thing?.nodeType === 'number'
     && thing.nodeType === 1
-    && thing instanceof Element === true
+    && thing instanceof Element
   );
 
   return things.every(isElement);
 }
 
+export function isNodeListOfElement(thing: any): thing is NodeListOf<Element>;
+export function isNodeListOfElement(...things: any[]): boolean;
 export function isNodeListOfElement(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
@@ -27,8 +30,8 @@ export function isNodeListOfElement(...things: any[]): boolean {
   const isNodeListOfElement = (thing: any): thing is NodeListOf<Element> => (
     thing
     && typeof thing === 'object'
-    && NodeList.prototype.isPrototypeOf(thing) === true
-    && [...thing].every(element => isElement(element)) === true
+    && NodeList.prototype.isPrototypeOf(thing)
+    && [...thing].every(element => isElement(element))
   );
 
   return things.every(isNodeListOfElement);
@@ -36,19 +39,19 @@ export function isNodeListOfElement(...things: any[]): boolean {
 
 export function toElementArray(elements: Element | Elements): Element[] {
   if (
-    isNodeListOfElement(elements) === true
-    || isHTMLCollection(elements) === true
+    isNodeListOfElement(elements)
+    || isHTMLCollection(elements)
   ) {
     elements = elements as NodeListOf<Element> | HTMLCollection;
 
     return [...elements];
-  } else if (isElement(elements) === true) {
+  } else if (isElement(elements)) {
     const element = elements as Element;
 
     return [element];
   } else if (
-    Array.isArray(elements) === true
-    && isElement(...elements as unknown[]) === true
+    Array.isArray(elements)
+    && isElement(...elements as unknown[])
   ) {
     return elements as Element[];
   }
@@ -56,6 +59,8 @@ export function toElementArray(elements: Element | Elements): Element[] {
   return [];
 }
 
+export function isHTMLElement(thing: any): thing is HTMLElement;
+export function isHTMLElement(...things: any[]): boolean;
 export function isHTMLElement(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
@@ -63,15 +68,16 @@ export function isHTMLElement(...things: any[]): boolean {
 
   const isHTMLElement = (thing: any): thing is HTMLElement => (
     thing
-    && typeof thing === 'object'
-    && typeof thing.nodeType === 'number'
+    && typeof thing?.nodeType === 'number'
     && thing.nodeType === 1
-    && thing instanceof HTMLElement === true
+    && thing instanceof HTMLElement
   );
 
   return things.every(isHTMLElement);
 }
 
+export function isNodeListOfHTMLElement(thing: any): thing is NodeListOf<HTMLElement>;
+export function isNodeListOfHTMLElement(...things: any[]): boolean;
 export function isNodeListOfHTMLElement(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
@@ -87,6 +93,8 @@ export function isNodeListOfHTMLElement(...things: any[]): boolean {
   return things.every(isNodeListOfHTMLElement);
 }
 
+export function isHTMLCollection(thing: any): thing is HTMLCollection;
+export function isHTMLCollection(...things: any[]): boolean;
 export function isHTMLCollection(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
@@ -103,32 +111,31 @@ export function isHTMLCollection(...things: any[]): boolean {
 
 export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLElement[] {
   if (isNodeListOfHTMLElement(elements) || isHTMLCollection(elements)) {
-    elements = elements as NodeListOf<HTMLElement> | HTMLCollection;
-
     return [...elements] as HTMLElement[];
   } else if (isHTMLElement(elements)) {
-    const element = elements as HTMLElement;
-
-    return [element];
+    return [elements];
   } else if (
     Array.isArray(elements)
     && isHTMLElement(...elements as unknown[])
   ) {
-    return elements as HTMLElement[];
+    return elements;
   }
 
   return [];
 }
 
-export function isInputOrTextArea(...things: any[]): boolean {
+export function isInputOrTextArea(thing: any): thing is HTMLInputElement | HTMLTextAreaElement;
+export function isInputOrTextArea(...things: any[]): boolean;
+export function isInputOrTextArea(thing: any, ...things: any[]): boolean {
+  things.push(thing);
+
   if (things.length === 0) {
     return false;
   }
 
   const isInputOrTextArea = (thing: any): thing is HTMLInputElement | HTMLTextAreaElement => (
     thing
-    && typeof thing === 'object'
-    && typeof thing.nodeType === 'number'
+    && typeof thing?.nodeType === 'number'
     && thing.nodeType === 1
     && (
       (

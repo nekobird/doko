@@ -121,7 +121,7 @@ export function elementIsClipping(
     _cornersOrEdges = [...DOMViewEdgeAndCornerNames];
   }
 
-  if (Array.isArray(cornersOrEdges) === true) {
+  if (Array.isArray(cornersOrEdges)) {
     _cornersOrEdges = cornersOrEdges as DOMViewEdgeAndCornerNames[];
   } else if (typeof cornersOrEdges === 'string') {
     _cornersOrEdges = [cornersOrEdges];
