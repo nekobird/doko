@@ -12,7 +12,8 @@ export function isElement(...things: any[]): boolean {
 
   const isElement = (thing: any): thing is Element => (
     thing
-    && typeof thing?.nodeType === 'number'
+    && 'nodeType' in thing
+    && typeof thing.nodeType === 'number'
     && thing.nodeType === 1
     && thing instanceof Element
   );
@@ -68,7 +69,8 @@ export function isHTMLElement(...things: any[]): boolean {
 
   const isHTMLElement = (thing: any): thing is HTMLElement => (
     thing
-    && typeof thing?.nodeType === 'number'
+    && 'nodeType' in thing
+    && typeof thing.nodeType === 'number'
     && thing.nodeType === 1
     && thing instanceof HTMLElement
   );
@@ -133,7 +135,8 @@ export function isInputOrTextArea(...things: any[]): boolean {
 
   const isInputOrTextArea = (thing: any): thing is HTMLInputElement | HTMLTextAreaElement => (
     thing
-    && typeof thing?.nodeType === 'number'
+    && 'nodeType' in thing
+    && typeof thing.nodeType === 'number'
     && thing.nodeType === 1
     && (
       (thing.nodeName === 'INPUT' && thing instanceof HTMLInputElement)
