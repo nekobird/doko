@@ -30,16 +30,12 @@ export const DOMViewEdgeAndCornerNames: DOMViewEdgeAndCornerNames[] = [
 export function elementIsInView(element: HTMLElement): boolean {
   const { top, bottom, left, right } = element.getBoundingClientRect();
 
-  if (
-    left < 0
+  return !(
+       left < 0
     || top  < 0
     || right  > Viewport.width
     || bottom > Viewport.height
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 export function getElementWidthInView(element: HTMLElement): number {  
@@ -129,10 +125,7 @@ export function elementIsClipping(
 
   const result = elementIsClippingCornerOrEdge(element);
 
-  if (
-    result === null
-    || _cornersOrEdges.indexOf(result) === -1
-  ) {
+  if (result === null || _cornersOrEdges.indexOf(result) === -1) {
     return null;
   }
 

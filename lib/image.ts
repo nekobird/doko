@@ -14,15 +14,13 @@ export function loadImageFromSource(source: string): Promise<DOMImagePromiseValu
     const image = new Image();
 
     image.addEventListener('load', () => {
-      const width  = image.width;
-      const height = image.height;
-
+      const { width, height } = image;
       resolve({ image, source, width, height });
     });
 
-    image.addEventListener('error', () => {
-      reject(new Error('DOMImage.loadImageFromSource: There is an error loading image.'));
-    });
+    image.addEventListener('error', () =>
+      reject(new Error('DOMImage.loadImageFromSource: There is an error loading image.'))
+    );
 
     image.src = source;
   });
@@ -36,9 +34,9 @@ export function getImageSizeFromSource(
   return new Promise((resolve, reject) => {
     const image = new Image();
 
-    image.addEventListener('error', () => {
-      reject(new Error('DOMImage.getImageSizeFromSource: There is an error loading image.'));
-    });
+    image.addEventListener('error', () =>
+      reject(new Error('DOMImage.getImageSizeFromSource: There is an error loading image.'))
+    );
 
     image.src = source;
 

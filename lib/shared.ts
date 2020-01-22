@@ -46,7 +46,7 @@ export function subtractPoint(
   const x = from.x - by.x;
   const y = from.y - by.y;
 
-  if (mutate === true) {
+  if (mutate) {
     from.x = x;
     from.y = y;
     return { ...from };

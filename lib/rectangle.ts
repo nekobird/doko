@@ -87,7 +87,7 @@ export function getTwoElementRectanglesOverlappingArea(
   const rect1 = element1.getBoundingClientRect();
   const rect2 = element2.getBoundingClientRect();
 
-  if (twoElementRectanglesAreOverlapping(element1, element2) === true) {
+  if (twoElementRectanglesAreOverlapping(element1, element2)) {
     const top    = Math.max(rect1.top,    rect2.top);
     const bottom = Math.min(rect1.bottom, rect2.bottom);
 

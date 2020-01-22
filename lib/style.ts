@@ -99,11 +99,9 @@ export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.animationDuration;
 
-  if (!value) {
-    return [0];
-  }
-
-  return value.split(',').map(duration => parseFloat(duration) * 1000);
+  return value
+    ? value.split(',').map(duration => parseFloat(duration) * 1000)
+    : [0];
 }
 
 export function getBaseFontSize(): number {

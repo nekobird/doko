@@ -91,11 +91,9 @@ export function getTotalHorizontalDimension(
   element: HTMLElement,
   includeTransform: boolean = false,
 ): number {
-  let width = element.offsetWidth;
-
-  if (includeTransform === true) {
-    width = element.getBoundingClientRect().width;
-  }
+  const width = includeTransform === true
+    ? element.getBoundingClientRect().width
+    : element.offsetWidth;
 
   return width + getTotalHorizontalOuterSpace(element);
 }
@@ -104,11 +102,9 @@ export function getTotalVerticalDimension(
   element: HTMLElement,
   includeTransform: boolean = false,
 ): number {
-  let height = element.offsetHeight;
-  
-  if (includeTransform === true) {
-    height = element.getBoundingClientRect().height;
-  }
+  const height = includeTransform === true
+    ? element.getBoundingClientRect().height
+    : element.offsetHeight;
 
   return height + getTotalVerticalOuterSpace(element);
 }

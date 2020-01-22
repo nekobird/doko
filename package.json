@@ -28,7 +28,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@nekobird/piko": "0.0.6"
+    "@nekobird/piko": "0.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",

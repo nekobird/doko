@@ -126,9 +126,7 @@ export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLEl
 
 export function isInputOrTextArea(thing: any): thing is HTMLInputElement | HTMLTextAreaElement;
 export function isInputOrTextArea(...things: any[]): boolean;
-export function isInputOrTextArea(thing: any, ...things: any[]): boolean {
-  things.push(thing);
-
+export function isInputOrTextArea(...things: any[]): boolean {
   if (things.length === 0) {
     return false;
   }

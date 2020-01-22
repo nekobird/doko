@@ -82,7 +82,6 @@ interface StyleObject {
   [name: string]: string;
 }
 
-
 export function getTextBoxHeightFromElement(
   element: HTMLElement,
   text: string | null = null,

@@ -44,10 +44,7 @@ let scrollY: number;
 
 export class Viewport {
   public static setScrollToggleElement(element: HTMLElement) {
-    scrollToggleElement = (
-      isHTMLElement(element) === true
-      && scrollingIsDisabled === false
-    )
+    scrollToggleElement = (isHTMLElement(element) && !scrollingIsDisabled)
       ? element
       : document.body;
   }
@@ -64,7 +61,7 @@ export class Viewport {
     isLocked: boolean = false,
     forceHideScrollbar: boolean = false,
   ) {
-    if (scrollingIsDisabled === false) {
+    if (!scrollingIsDisabled) {
       let { 
         hasHorizontalScrollBar,
         hasVerticalScrollBar,
@@ -78,17 +75,11 @@ export class Viewport {
       scrollToggleElement.style.left = `-${scrollX}px`;
       scrollToggleElement.style.top  = `-${scrollY}px`;
 
-      if (
-        hasHorizontalScrollBar === true
-        && forceHideScrollbar === false
-      ) {
+      if (hasHorizontalScrollBar && !forceHideScrollbar) {
         document.documentElement.style.overflowX = 'scroll';
       }
 
-      if (
-        hasVerticalScrollBar === true
-        && forceHideScrollbar === false
-      ) {
+      if (hasVerticalScrollBar && !forceHideScrollbar) {
         document.documentElement.style.overflowY = 'scroll';
       }
 
@@ -99,13 +90,10 @@ export class Viewport {
   }
 
   public static enableScrolling(unlock: boolean = false) {
-    if (scrollingIsDisabled === true) {
+    if (scrollingIsDisabled) {
       if (
-        scrollingIsLocked === false
-        || (
-          scrollingIsLocked === true
-          && unlock === true
-        )
+        !scrollingIsLocked
+        || (scrollingIsLocked && unlock)
       ) {
         document.documentElement.style.removeProperty('overflow-x');
         document.documentElement.style.removeProperty('overflow-y');
@@ -125,7 +113,7 @@ export class Viewport {
   }
 
   public static scrollTo(left: number, top: number) {
-    if (scrollingIsDisabled === true) {
+    if (scrollingIsDisabled) {
       scrollX = left;
       scrollY = top;
 
@@ -240,7 +228,7 @@ export class Viewport {
   }
 
   private static createModel(): Viewport {
-    if (modelIsReady === false) {
+    if (!modelIsReady) {
       modelElement = document.createElement('DIV');
 
       document.body.appendChild(modelElement);
@@ -254,7 +242,7 @@ export class Viewport {
   }
 
   private static destroyModel(): Viewport {
-    if (modelIsReady === true) {
+    if (modelIsReady) {
       document.body.removeChild(modelElement);
 
       modelElement.remove();

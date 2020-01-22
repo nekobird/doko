@@ -98,67 +98,57 @@ export function isElementAbovePoints(
   element: HTMLElement,
   points: PointLike | PointLike[],
   offset: number = 0,
-) {
+): boolean {
   const { bottom } = element.getBoundingClientRect();
 
-  if (Array.isArray(points) === true) {
-    let isAbovePoints = true;
-
-    points = points as Point[];
-
-    points.forEach(({ y }) => {
+  if (Array.isArray(points)) {
+    for (const { y } of points) {
       if (bottom + offset < y === false) {
-        isAbovePoints = false;
+        return false;
       }
-    });
+    };
 
-    return isAbovePoints;
+    return true;
   }
 
-  const point = points as Point;
-
-  return bottom + offset < point.y;
+  return bottom + offset < points.y;
 }
 
 export function isElementBelowPoints(
   element: HTMLElement,
   points: PointLike | PointLike[],
   offset: number = 0,
-) {
+): boolean {
   const { top } = element.getBoundingClientRect();
 
-  if (Array.isArray(points) === true) {
-    let isBelowPoints = true;
-
-    (points as Point[]).forEach(({ y }) => {
+  if (Array.isArray(points)) {
+    for (const { y } of points) {
       if (top + offset > y === false) {
-        isBelowPoints = false;
+        return false;
       }
-    });
+    }
 
-    return isBelowPoints;
+    return true;
   }
 
-  return top + offset > (points as Point).y;
+  return top + offset > points.y;
 }
 
 export function isElementCenterAbovePoints(
   element: HTMLElement,
   points: PointLike | PointLike[],
   offset: number = 0,
-) {
+): boolean {
   const centerPoint = getElementCenterPoint(element);
 
-  if (Array.isArray(points) === true) {
-    let isAbovePoint = true;
-
-    (points as Point[]).forEach(({ y }) => {
+  if (Array.isArray(points)) {
+    for (const { y } of points) {
       if (centerPoint.y + offset > y === false) {
-        isAbovePoint = false;
+        return false;
       }
-    });
+    };
 
-    return isAbovePoint;
+    return true;
   }
 
   return centerPoint.y + offset > (points as Point).y;
@@ -168,19 +158,17 @@ export function isElementCenterBelowPoints(
   element: HTMLElement,
   points: PointLike | PointLike[],
   offset: number = 0,
-) {
+): boolean {
   const centerPoint = getElementCenterPoint(element);
 
   if (Array.isArray(points)) {
-    let isBelowPoint = true;
-
-    points.forEach(({ y }) => {
+    for (const { y } of points) {
       if (centerPoint.y + offset < y === false) {
-        isBelowPoint = false;
+        return false;
       }
-    });
+    };
 
-    return isBelowPoint;
+    return true;
   }
 
   return centerPoint.y + offset < points.y;
@@ -236,7 +224,7 @@ export function findElementFromPoint(
   let results: HTMLElement[] = [];
 
   elements.forEach(element => {
-    if (identifyElement(element) === true) {
+    if (identifyElement(element)) {
       results.push(element as HTMLElement);
     }
   });

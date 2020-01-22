@@ -33,9 +33,7 @@ export function ascendFrom(
     && element !== to
     && element !== document.documentElement
   ) {
-    if (inspect(element) === true) {
-      break;
-    }
+    if (inspect(element)) break;
 
     element = element.parentElement;
   }
@@ -49,12 +47,8 @@ export function descendFrom(
     const children = element.children;
 
     if (children.length > 0) {
-      for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-
-        if (inspect(child) === true) {
-          break;
-        }
+      for (const child of children) {
+        if (inspect(child)) break;
 
         if (child.children.length > 0) {
           descent(child);
@@ -73,11 +67,11 @@ export function findAncestor(
 ): DOMTraverseResult {
   const results: Element[] = [];
 
-  if (isHTMLElement(from) === false) {
+  if (!isHTMLElement(from)) {
     return null;
   }
 
-  if (identifyElement(from) === true) {
+  if (identifyElement(from)) {
     results.push(from);
   }
 
@@ -87,10 +81,10 @@ export function findAncestor(
     element
     && element !== document.documentElement
   ) {
-    if (identifyElement(element) === true) {
+    if (identifyElement(element)) {
       results.push(element);
 
-      if (getAllMatchingAncestors === false) {
+      if (!getAllMatchingAncestors) {
         break;
       }
     }
@@ -120,15 +114,11 @@ export function findDescendant(
     const children = element.children;
 
     if (children.length > 0) {
-      for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-
-        if (identifyElement(child) === true) {
+      for (const child of children) {
+        if (identifyElement(child)) {
           results.push(child);
 
-          if (getAllMatchingDescendants === false) {
-            break;
-          }
+          if (!getAllMatchingDescendants) break;
         }
 
         if (child.children.length > 0) {
@@ -156,10 +146,10 @@ export function findAncestorWithClass(
 
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
-  } else if (Array.isArray(classNames) === true) {
+  } else if (Array.isArray(classNames)) {
     identifyElement = element => {
-      for (let i = 0; i < classNames.length; i++) {
-        if (element.classList.contains(classNames[i]) === true) {
+      for (const className of classNames) {
+        if (element.classList.contains(className)) {
           return true;
         }
       }
@@ -180,10 +170,10 @@ export function findDescendantWithClass(
 
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
-  } else if (Array.isArray(classNames) === true) {
+  } else if (Array.isArray(classNames)) {
     identifyElement = element => {
-      for (let i = 0; i < classNames.length; i++) {
-        if (element.classList.contains(classNames[i]) === true) {
+      for (const className of classNames) {
+        if (element.classList.contains(className)) {
           return true;
         }
       }
@@ -264,15 +254,11 @@ export function findSibling(
   if (siblings.length > 0) {
     const results: Element[] = [];
 
-    for (let i = 0; i < siblings.length; i++) {
-      const sibling = siblings[i];
-
-      if (identifyElement(sibling) === true) {
+    for (const sibling of siblings) {
+      if (identifyElement(sibling)) {
         results.push(sibling);
 
-        if (getAllMatchingSiblings === false) {
-          break;
-        }
+        if (!getAllMatchingSiblings) break;
       }
     }
 
@@ -291,10 +277,7 @@ export function findNextSibling(
   let nextSibling: Element | null = element;
 
   while (nextSibling) {
-    if (
-      element
-      && identifyElement(element) === true
-    ) {
+    if (element && identifyElement(element)) {
       return element;
     }
 
@@ -315,8 +298,8 @@ export function findSiblingWithClass(
     identifyElement = sibling => sibling.classList.contains(classNames);
   } else if (Array.isArray(classNames) === true) {
     identifyElement = sibling => {
-      for (let i = 0; i < classNames.length; i++) {
-        if (sibling.classList.contains(classNames[i]) === true) {
+      for (const className of classNames) {
+        if (sibling.classList.contains(className)) {
           return true;
         }
       }
@@ -385,10 +368,8 @@ export function removeChild(
     const children = parent.children;
 
     if (children.length > 0) {
-      for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-
-        if (identifyElement(child) === true) {
+      for (const child of children) {
+        if (identifyElement(child)) {
           parent.removeChild(child);
 
           deleteCount++;

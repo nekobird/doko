@@ -317,9 +317,8 @@ export function transformOffsetRelativeTo(offset: Offset, to: OffsetRelation): O
   } else if (to === 'viewport') {
     left = left;
     top  = top;
-  } else if (isHTMLElement(to) === true) {
-    const target = to as HTMLElement;
-    const rect = target.getBoundingClientRect();
+  } else if (isHTMLElement(to)) {
+    const rect = to.getBoundingClientRect();
 
     left = left - rect.left;
     top  = top  - rect.top;
