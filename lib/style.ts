@@ -92,7 +92,9 @@ export function getAnimationDelaysInSeconds(element: HTMLElement): number[] {
     return [0];
   }
 
-  return value.split(',').map(delay => parseFloat(delay) * 1000);
+  return value
+    .split(',')
+    .map(delay => parseFloat(delay) * 1000);
 }
 
 export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
@@ -109,7 +111,7 @@ export function getBaseFontSize(): number {
 
   return (
     typeof fontSize === 'string'
-    && fontSize.match(/^[0-9]+/g) !== null
+    && /^[\d]+/g.test(fontSize)
   )
     ? parseFloat(fontSize)
     : 16;
@@ -217,7 +219,7 @@ export function getParentsMaxAnimationDuration(
     from,
     element => {
       if (isHTMLElement(element)) {
-        const duration = withDelay === true
+        const duration = withDelay
           ? getMaxAnimationDurationWithDelayInSeconds(element)
           : getMaxAnimationDurationInSeconds(element);
 
@@ -238,7 +240,7 @@ export function getStyleValue(
   const _property = kebabCaseToCamelCase(property);
   const value     = style[_property];
 
-  return !stringOnly && value.match(/^[0-9]+/g)
+  return (!stringOnly && /^[\d]+/g.test(value))
     ? parseFloat(value)
     : value;
 }
@@ -258,7 +260,7 @@ export function getStyleValues(
     const _property = kebabCaseToCamelCase(property);
     const value = style[_property];
 
-    result[_property] = stringOnly === false && value.match(/^[0-9]+/g)
+    result[_property] = (!stringOnly && /^[\d]+/g.test(value))
       ? parseFloat(value)
       : value;
 

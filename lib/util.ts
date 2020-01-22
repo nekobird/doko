@@ -136,14 +136,8 @@ export function isInputOrTextArea(...things: any[]): boolean {
     && typeof thing?.nodeType === 'number'
     && thing.nodeType === 1
     && (
-      (
-        thing.nodeName === 'INPUT'
-        && thing instanceof HTMLInputElement
-      )
-      || (
-        thing.nodeName === 'TEXTAREA'
-        && thing instanceof HTMLTextAreaElement
-      )
+      (thing.nodeName === 'INPUT' && thing instanceof HTMLInputElement)
+      || (thing.nodeName === 'TEXTAREA' && thing instanceof HTMLTextAreaElement)
     )
   );
 
