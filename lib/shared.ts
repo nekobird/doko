@@ -34,8 +34,7 @@ export function getLengthFromOrigin(point: PointLike): number {
 }
 
 export function getDistanceFromPointToPoint(from: PointLike, to: PointLike): number {
-  const difference = subtractPoint(from, to, true);
-  return getLengthFromOrigin(difference);
+  return getLengthFromOrigin(subtractPoint(from, to, true));
 }
 
 export function subtractPoint(

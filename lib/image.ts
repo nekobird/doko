@@ -45,14 +45,14 @@ export function getImageSizeFromSource(
     const intervalId = setInterval(
       () => {
         if (
-             typeof image.naturalWidth  === 'number'
+          typeof image.naturalWidth === 'number'
           && typeof image.naturalHeight === 'number'
         ) {
           clearTimeout(timeoutId);
           clearInterval(intervalId);
 
           resolve({
-            width:  image.naturalWidth,
+            width: image.naturalWidth,
             height: image.naturalHeight,
           });
         }

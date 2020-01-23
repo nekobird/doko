@@ -231,7 +231,9 @@ export function findElementFromPoint(
 
   if (results.length === 0) {
     return false;
-  } else if (results.length === 1) {
+  }
+
+  if (results.length === 1) {
     return results[0];
   }
 

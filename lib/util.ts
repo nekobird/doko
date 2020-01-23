@@ -43,18 +43,11 @@ export function toElementArray(elements: Element | Elements): Element[] {
     isNodeListOfElement(elements)
     || isHTMLCollection(elements)
   ) {
-    elements = elements as NodeListOf<Element> | HTMLCollection;
-
     return [...elements];
   } else if (isElement(elements)) {
-    const element = elements as Element;
-
-    return [element];
-  } else if (
-    Array.isArray(elements)
-    && isElement(...elements as unknown[])
-  ) {
-    return elements as Element[];
+    return [elements];
+  } else if (Array.isArray(elements) && isElement(...elements)) {
+    return elements;
   }
 
   return [];
@@ -88,8 +81,8 @@ export function isNodeListOfHTMLElement(...things: any[]): boolean {
   const isNodeListOfHTMLElement = (thing: any): thing is NodeListOf<HTMLElement> => (
     thing
     && typeof thing === 'object'
-    && NodeList.prototype.isPrototypeOf(thing) === true
-    && [...thing].every(element => isHTMLElement(element)) === true
+    && NodeList.prototype.isPrototypeOf(thing)
+    && [...thing].every(element => isHTMLElement(element))
   );
 
   return things.every(isNodeListOfHTMLElement);
@@ -105,7 +98,7 @@ export function isHTMLCollection(...things: any[]): boolean {
   const isHTMLCollection = (thing: any): thing is HTMLCollection => (
     thing
     && typeof thing === 'object'
-    && HTMLCollection.prototype.isPrototypeOf(thing) === true
+    && HTMLCollection.prototype.isPrototypeOf(thing)
   );
 
   return things.every(isHTMLCollection);

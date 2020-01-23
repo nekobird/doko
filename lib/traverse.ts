@@ -230,7 +230,7 @@ export function getSiblings(
   if (element.parentElement) {
     const siblings = [...element.parentElement.children];
 
-    if (isExclusive === true) {
+    if (isExclusive) {
       siblings.splice(siblings.indexOf(element), 1);
     }
 

@@ -16,62 +16,50 @@ import {
 } from './shared';
 
 export function getScrollLeftToElement(...elements: HTMLElement[]): number {
-  let rect;
-  let left = 0;
-
-  rect = elements.length > 1
+  const rect = elements.length > 1
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  if (rect !== false) {
-    left = rect.left;
-  }
-
-  return left + scrollLeft();
+  return rect
+    ? rect.left + scrollLeft()
+    : 0;
 }
 
 export function getScrollTopToElement(...elements: HTMLElement[]): number {
-  let rect;
-  let top = 0;
-
-  rect = elements.length > 1
+  const rect = elements.length > 1
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  if (rect !== false) {
-    top = rect.top;
-  }
-
-  return top + scrollTop();
+  return rect
+    ? rect.top + scrollTop()
+    : 0;
 }
 
 export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): number {
-  let rect;
+  const rect = elements.length > 1
+    ? getMinimumBoundingRectangleFromElements(...elements)
+    : elements[0].getBoundingClientRect();
+
   let left = 0;
   let width = 0;
 
-  rect = elements.length > 1
-    ? getMinimumBoundingRectangleFromElements(...elements)
-    : elements[0].getBoundingClientRect();
-
-  if (rect !== false) {
-    left = rect.left;
+  if (rect) {
+    left  = rect.left;
     width = rect.width;
   }
 
-  return left - (Viewport.width - width) / 2 + scrollLeft();
+  return left - (Viewport.width - width) / width + scrollLeft();
 }
 
 export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): number {
-  let rect;
-  let top = 0;
-  let height = 0;
-
-  rect = elements.length > 1
+  const rect = elements.length > 1
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  if (rect !== false) {
+  let top = 0;
+  let height = 0;
+
+  if (rect) {
     top = rect.top;
     height = rect.height;
   }
