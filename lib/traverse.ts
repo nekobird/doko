@@ -93,7 +93,7 @@ export function findAncestor(
   }
 
   if (results.length > 0) {
-    return getAllMatchingAncestors === true ? results : results[0];
+    return getAllMatchingAncestors ? results : results[0];
   }
 
   return null;
@@ -106,7 +106,7 @@ export function findDescendant(
 ): DOMTraverseResult {
   const results: Element[] = [];
 
-  if (identifyElement(from) === true) {
+  if (identifyElement(from)) {
     results.push(from);
   }
 
@@ -131,7 +131,7 @@ export function findDescendant(
   descent(from);
 
   if (results.length > 0) {
-    return getAllMatchingDescendants === true ? results : results[0];
+    return getAllMatchingDescendants ? results : results[0];
   }
 
   return null;
@@ -147,15 +147,7 @@ export function findAncestorWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => {
-      for (const className of classNames) {
-        if (element.classList.contains(className)) {
-          return true;
-        }
-      }
-
-      return false;
-    };
+    identifyElement = element => classNames.some(className => element.classList.contains(className));
   }
 
   return findAncestor(from, identifyElement, getAllMatchingAncestors);
@@ -171,15 +163,7 @@ export function findDescendantWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => {
-      for (const className of classNames) {
-        if (element.classList.contains(className)) {
-          return true;
-        }
-      }
-
-      return false;
-    };
+    identifyElement = element => classNames.some(className => element.classList.contains(className));
   }
 
   return findDescendant(from, identifyElement, getAllMatchingDescendants);
@@ -296,16 +280,8 @@ export function findSiblingWithClass(
 
   if (typeof classNames === 'string') {
     identifyElement = sibling => sibling.classList.contains(classNames);
-  } else if (Array.isArray(classNames) === true) {
-    identifyElement = sibling => {
-      for (const className of classNames) {
-        if (sibling.classList.contains(className)) {
-          return true;
-        }
-      }
-
-      return false;
-    };
+  } else if (Array.isArray(classNames)) {
+    identifyElement = sibling => classNames.some(className => sibling.classList.contains(className));
   }
 
   return findSibling(element, identifyElement, getAllMatchingSiblings);
