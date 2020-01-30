@@ -147,7 +147,7 @@ export function findAncestorWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => classNames.some(className => element.classList.contains(className));
+    identifyElement = element => classNames.every(className => element.classList.contains(className));
   }
 
   return findAncestor(from, identifyElement, getAllMatchingAncestors);
@@ -163,7 +163,7 @@ export function findDescendantWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => classNames.some(className => element.classList.contains(className));
+    identifyElement = element => classNames.every(className => element.classList.contains(className));
   }
 
   return findDescendant(from, identifyElement, getAllMatchingDescendants);
@@ -281,7 +281,7 @@ export function findSiblingWithClass(
   if (typeof classNames === 'string') {
     identifyElement = sibling => sibling.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = sibling => classNames.some(className => sibling.classList.contains(className));
+    identifyElement = sibling => classNames.every(className => sibling.classList.contains(className));
   }
 
   return findSibling(element, identifyElement, getAllMatchingSiblings);
