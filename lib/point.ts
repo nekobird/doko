@@ -100,18 +100,9 @@ export function isElementAbovePoints(
   offset: number = 0,
 ): boolean {
   const { bottom } = element.getBoundingClientRect();
-
-  if (Array.isArray(points)) {
-    for (const { y } of points) {
-      if (bottom + offset < y === false) {
-        return false;
-      }
-    };
-
-    return true;
-  }
-
-  return bottom + offset < points.y;
+  return Array.isArray(points)
+    ? points.every(({ y }) => bottom + offset < y)
+    : bottom + offset < points.y
 }
 
 export function isElementBelowPoints(
@@ -120,18 +111,9 @@ export function isElementBelowPoints(
   offset: number = 0,
 ): boolean {
   const { top } = element.getBoundingClientRect();
-
-  if (Array.isArray(points)) {
-    for (const { y } of points) {
-      if (top + offset > y === false) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  return top + offset > points.y;
+  return Array.isArray(points)
+    ? points.every(({ y }) => top + offset > y)
+    : top + offset > points.y
 }
 
 export function isElementCenterAbovePoints(
@@ -140,18 +122,9 @@ export function isElementCenterAbovePoints(
   offset: number = 0,
 ): boolean {
   const centerPoint = getElementCenterPoint(element);
-
-  if (Array.isArray(points)) {
-    for (const { y } of points) {
-      if (centerPoint.y + offset > y === false) {
-        return false;
-      }
-    };
-
-    return true;
-  }
-
-  return centerPoint.y + offset > (points as Point).y;
+  return Array.isArray(points)
+    ? points.every(({ y }) => centerPoint.y + offset > y)
+    : centerPoint.y + offset > points.y
 }
 
 export function isElementCenterBelowPoints(
@@ -160,18 +133,9 @@ export function isElementCenterBelowPoints(
   offset: number = 0,
 ): boolean {
   const centerPoint = getElementCenterPoint(element);
-
-  if (Array.isArray(points)) {
-    for (const { y } of points) {
-      if (centerPoint.y + offset < y === false) {
-        return false;
-      }
-    };
-
-    return true;
-  }
-
-  return centerPoint.y + offset < points.y;
+  return Array.isArray(points)
+    ? points.every(({ y }) => centerPoint.y + offset < y)
+    : centerPoint.y + offset < points.y
 }
 
 export function getClosestDistanceFromElementCornersToPoint(
