@@ -29,7 +29,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@nekobird/piko": "0.0.7"
+    "@nekobird/piko": "0.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

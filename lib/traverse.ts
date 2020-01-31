@@ -147,7 +147,7 @@ export function findAncestorWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => classNames.every(className => element.classList.contains(className));
+    identifyElement = element => classNames.some(className => element.classList.contains(className));
   }
 
   return findAncestor(from, identifyElement, getAllMatchingAncestors);
@@ -163,7 +163,7 @@ export function findDescendantWithClass(
   if (typeof classNames === 'string') {
     identifyElement = element => element.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = element => classNames.every(className => element.classList.contains(className));
+    identifyElement = element => classNames.some(className => element.classList.contains(className));
   }
 
   return findDescendant(from, identifyElement, getAllMatchingDescendants);
@@ -281,7 +281,7 @@ export function findSiblingWithClass(
   if (typeof classNames === 'string') {
     identifyElement = sibling => sibling.classList.contains(classNames);
   } else if (Array.isArray(classNames)) {
-    identifyElement = sibling => classNames.every(className => sibling.classList.contains(className));
+    identifyElement = sibling => classNames.some(className => sibling.classList.contains(className));
   }
 
   return findSibling(element, identifyElement, getAllMatchingSiblings);
@@ -292,12 +292,9 @@ export function getChildren(
   identifyElement?: DOMTraversePredicateFunction,
 ): Element[] {
   const children = [...element.children];
-
-  if (typeof identifyElement === 'undefined') {
-    return children;
-  }
-
-  return children.filter(element => identifyElement(element));
+  return typeof identifyElement === 'undefined'
+    ? children
+    : children.filter(element => identifyElement(element));
 }
 
 export function getNthChild(
@@ -327,7 +324,6 @@ export function removeChildren(element: Element): number {
 
   while (element.firstChild !== null) {
     element.removeChild(element.firstChild);
-
     deleteCount++;
   }
 
@@ -380,7 +376,6 @@ export function mapDataFromChildren<T>(
 
   if (selectedChildren.length === 1) {
     const datum: T = <T>extractFunction(selectedChildren[0]);
-
     return datum ? [datum] : [];
   }
 
@@ -388,7 +383,6 @@ export function mapDataFromChildren<T>(
 
   selectedChildren.forEach(child => {
     const datum: T = <T>extractFunction(child);
-
     if (datum) {
       results.push(datum);
     }

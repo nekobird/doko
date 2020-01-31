@@ -1,5 +1,7 @@
 import {
   hypotenuse,
+  isNumber,
+  isObject,
 } from '@nekobird/piko';
 
 import {
@@ -8,25 +10,21 @@ import {
 } from './interfaces';
 
 export function scrollLeft(): number {
-  if (typeof window.pageXOffset === 'number') {
-    return window.pageXOffset;
-  }
-
-  return document.documentElement.scrollLeft
-    || document.body.scrollLeft
-    || window.scrollX
-    || 0;
+  return isNumber(window.pageXOffset)
+    ? window.pageXOffset
+    : document.documentElement.scrollLeft
+      || document.body.scrollLeft
+      || window.scrollX
+      || 0;
 }
 
 export function scrollTop(): number {
-  if (typeof window.pageYOffset === 'number') {
-    return window.pageYOffset;
-  }
-
-  return document.documentElement.scrollTop
-    || document.body.scrollTop
-    || window.scrollY
-    || 0;
+  return isNumber(window.pageYOffset)
+    ? window.pageYOffset
+    : document.documentElement.scrollTop
+      || document.body.scrollTop
+      || window.scrollY
+      || 0;
 }
 
 export function getLengthFromOrigin(point: PointLike): number {
@@ -54,10 +52,10 @@ export function subtractPoint(
   return { x, y };
 }
 
-export function isPointLike(point: any): point is PointLike {
+export function isPointLike(point?: any): point is PointLike {
   return (
-    typeof point === 'object'
-    && typeof point.x === 'number'
-    && typeof point.y === 'number'
+       isObject(point)
+    && isNumber(point.x)
+    && isNumber(point.y)
   );
 }

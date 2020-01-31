@@ -1,4 +1,9 @@
 import {
+  isObject,
+  isNumber,
+} from '@nekobird/piko';
+
+import {
   Elements,
   HTMLElements,
 } from './interfaces';
@@ -6,43 +11,44 @@ import {
 export function isElement(thing: any): thing is Element;
 export function isElement(...things: any[]): boolean;
 export function isElement(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isElement = (thing: any): thing is Element => (
-    thing
-    && 'nodeType' in thing
-    && typeof thing.nodeType === 'number'
-    && thing.nodeType === 1
-    && thing instanceof Element
+  const isElement = (value?: any): value is Element => (
+    value
+    && 'nodeType' in value
+    && isNumber(value.nodeType)
+    && value.nodeType === 1
+    && value instanceof Element
   );
 
-  return things.every(isElement);
+  return values.every(isElement);
 }
 
 export function isNodeListOfElement(thing: any): thing is NodeListOf<Element>;
 export function isNodeListOfElement(...things: any[]): boolean;
 export function isNodeListOfElement(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isNodeListOfElement = (thing: any): thing is NodeListOf<Element> => (
-    thing
-    && typeof thing === 'object'
-    && NodeList.prototype.isPrototypeOf(thing)
-    && [...thing].every(element => isElement(element))
+  const isNodeListOfElement = (value: any): value is NodeListOf<Element> => (
+    value
+    && isObject(value)
+    && NodeList.prototype.isPrototypeOf(value)
+    && [...value].every(element => isElement(element))
   );
 
-  return things.every(isNodeListOfElement);
+  return values.every(isNodeListOfElement);
 }
 
 export function toElementArray(elements: Element | Elements): Element[] {
-  if (
-    isNodeListOfElement(elements)
-    || isHTMLCollection(elements)
-  ) {
+  if (isNodeListOfElement(elements) || isHTMLCollection(elements)) {
     return [...elements];
   } else if (isElement(elements)) {
     return [elements];
@@ -56,52 +62,58 @@ export function toElementArray(elements: Element | Elements): Element[] {
 export function isHTMLElement(thing: any): thing is HTMLElement;
 export function isHTMLElement(...things: any[]): boolean;
 export function isHTMLElement(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isHTMLElement = (thing: any): thing is HTMLElement => (
-    thing
-    && 'nodeType' in thing
-    && typeof thing.nodeType === 'number'
-    && thing.nodeType === 1
-    && thing instanceof HTMLElement
+  const isHTMLElement = (value: any): value is HTMLElement => (
+    value
+    && 'nodeType' in value
+    && isNumber(value.nodeType)
+    && value.nodeType === 1
+    && value instanceof HTMLElement
   );
 
-  return things.every(isHTMLElement);
+  return values.every(isHTMLElement);
 }
 
 export function isNodeListOfHTMLElement(thing: any): thing is NodeListOf<HTMLElement>;
 export function isNodeListOfHTMLElement(...things: any[]): boolean;
 export function isNodeListOfHTMLElement(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isNodeListOfHTMLElement = (thing: any): thing is NodeListOf<HTMLElement> => (
-    thing
-    && typeof thing === 'object'
-    && NodeList.prototype.isPrototypeOf(thing)
-    && [...thing].every(element => isHTMLElement(element))
+  const isNodeListOfHTMLElement = (value: any): value is NodeListOf<HTMLElement> => (
+    value
+    && isObject(value)
+    && NodeList.prototype.isPrototypeOf(value)
+    && [...value].every(element => isHTMLElement(element))
   );
 
-  return things.every(isNodeListOfHTMLElement);
+  return values.every(isNodeListOfHTMLElement);
 }
 
 export function isHTMLCollection(thing: any): thing is HTMLCollection;
 export function isHTMLCollection(...things: any[]): boolean;
 export function isHTMLCollection(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isHTMLCollection = (thing: any): thing is HTMLCollection => (
-    thing
-    && typeof thing === 'object'
-    && HTMLCollection.prototype.isPrototypeOf(thing)
+  const isHTMLCollection = (value: any): value is HTMLCollection => (
+    value
+    && isObject(value)
+    && HTMLCollection.prototype.isPrototypeOf(value)
   );
 
-  return things.every(isHTMLCollection);
+  return values.every(isHTMLCollection);
 }
 
 export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLElement[] {
@@ -109,10 +121,7 @@ export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLEl
     return [...elements] as HTMLElement[];
   } else if (isHTMLElement(elements)) {
     return [elements];
-  } else if (
-    Array.isArray(elements)
-    && isHTMLElement(...elements as unknown[])
-  ) {
+  } else if (Array.isArray(elements) && isHTMLElement(...elements as unknown[])) {
     return elements;
   }
 
@@ -122,22 +131,24 @@ export function toHTMLElementArray(elements: HTMLElement | HTMLElements): HTMLEl
 export function isInputOrTextArea(thing: any): thing is HTMLInputElement | HTMLTextAreaElement;
 export function isInputOrTextArea(...things: any[]): boolean;
 export function isInputOrTextArea(...things: any[]): boolean {
-  if (things.length === 0) {
+  const values = Array.from(things);
+
+  if (values.length === 0) {
     return false;
   }
 
-  const isInputOrTextArea = (thing: any): thing is HTMLInputElement | HTMLTextAreaElement => (
-    thing
-    && 'nodeType' in thing
-    && typeof thing.nodeType === 'number'
-    && thing.nodeType === 1
+  const isInputOrTextArea = (value?: any): value is HTMLInputElement | HTMLTextAreaElement => (
+    value
+    && 'nodeType' in value
+    && isNumber(value.nodeType)
+    && value.nodeType === 1
     && (
-      (thing.nodeName === 'INPUT' && thing instanceof HTMLInputElement)
-      || (thing.nodeName === 'TEXTAREA' && thing instanceof HTMLTextAreaElement)
+         (value.nodeName === 'INPUT'    && value instanceof HTMLInputElement)
+      || (value.nodeName === 'TEXTAREA' && value instanceof HTMLTextAreaElement)
     )
   );
 
-  return things.every(isInputOrTextArea);
+  return values.every(isInputOrTextArea);
 }
 
 export function prependChild(parent: HTMLElement, child: HTMLElement): void {

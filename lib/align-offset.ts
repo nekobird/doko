@@ -106,7 +106,7 @@ export function getTargetAlignmentToView(
   const viewOffset = getViewOffset(viewReferencePoint);
 
   const left = targetRect.left + viewOffset.left - targetOffset.left;
-  const top = targetRect.top + viewOffset.top - targetOffset.top;
+  const top  = targetRect.top  + viewOffset.top  - targetOffset.top;
 
   return transformOffsetRelativeTo({ left, top }, relativeTo);
 }
@@ -168,129 +168,137 @@ export function getElementOffset(
 ): Offset {
   const rect = element.getBoundingClientRect();
 
-  let left = 0;
-  let top  = 0;
-
   const leftCenter = rect.left + getEuclideanDistance(rect.left, rect.right) / 2;
   const topCenter  = rect.top  + getEuclideanDistance(rect.top, rect.bottom) / 2;
 
   switch (referencePoint) {
-    case 'center': {
-      left = leftCenter;
-      top  = topCenter;
-      break;
-    }
+    case 'center':
+      return {
+        left: leftCenter,
+        top : topCenter,
+      };
 
-    case 'top-left': {
-      left = rect.left;
-      top  = rect.top;
-      break;
-    }
+    case 'top-left':
+      return {
+        left: rect.left,
+        top : rect.top,
+      };
 
-    case 'top': {
-      left = leftCenter;
-      top  = rect.top;
-      break;
-    }
+    case 'top':
+      return {
+        left: leftCenter,
+        top : rect.top,
+      };
 
-    case 'top-right': {
-      left = rect.right;
-      top  = rect.top;
-      break;
-    }
+    case 'top-right':
+      return {
+        left: rect.right,
+        top : rect.top,
+      };
 
-    case 'left': {
-      left = rect.left;
-      top  = topCenter;
-      break;
-    }
+    case 'left':
+      return {
+        left: rect.left,
+        top : topCenter,
+      };
 
-    case 'right': {
-      left = rect.right;
-      top  = topCenter;
-      break;
-    }
+    case 'right':
+      return {
+        left: rect.right,
+        top : topCenter,
+      };
 
-    case 'bottom-left': {
-      left = rect.left;
-      top  = rect.bottom;
-      break;
-    }
+    case 'bottom-left':
+      return {
+        left: rect.left,
+        top : rect.bottom,
+      };
 
-    case 'bottom': {
-      left = leftCenter;
-      top  = rect.bottom;
-      break;
-    }
+    case 'bottom':
+      return {
+        left: leftCenter,
+        top : rect.bottom,
+      };
 
-    case 'bottom-right': {
-      left = rect.right;
-      top  = rect.bottom;
-      break;
-    }
+    case 'bottom-right':
+      return {
+        left: rect.right,
+        top : rect.bottom,
+      };
+    
+    default:
+      return {
+        left: 0,
+        top : 0,
+      };
   }
-
-  return { left, top };
 }
 
 export function getViewOffset(referencePoint: DOMAlignOffsetReferencePointNames): Offset {
-  let left = 0;
-  let top  = 0;
-
   const leftCenter = Viewport.width  / 2;
   const topCenter  = Viewport.height / 2;
 
   switch (referencePoint) {
-    case 'center': {
-      left = leftCenter;
-      top  = topCenter;
-      break;
-    }
+    case 'center':
+      return {
+        left: leftCenter,
+        top: topCenter,
+      };
 
-    case 'top-left': {
-      break;
-    }
+    case 'top-left':
+      return {
+        left: 0,
+        top: 0,
+      };
 
-    case 'top': {
-      left = leftCenter;
-      break;
-    }
+    case 'top':
+      return {
+        left: leftCenter,
+        top: 0,
+      };
 
-    case 'top-right': {
-      left = Viewport.width;
-      break;
-    }
+    case 'top-right':
+      return {
+        left: Viewport.width,
+        top: 0,
+      };
 
-    case 'left': {
-      top = topCenter;
-      break;
-    }
+    case 'left':
+      return {
+        left: 0,
+        top: topCenter,
+      };
 
-    case 'right': {
-      left = Viewport.width;
-      top  = topCenter;
-      break;
-    }
+    case 'right':
+      return {
+        left: Viewport.width,
+        top: topCenter,
+      };
 
-    case 'bottom-left': {
-      top = Viewport.height;
-      break;
-    }
+    case 'bottom-left':
+      return {
+        left: 0,
+        top: Viewport.height,
+      };
 
-    case 'bottom': {
-      left = leftCenter;
-      top  = Viewport.height;
-      break;
-    }
+    case 'bottom':
+      return {
+        left: leftCenter,
+        top: Viewport.height,
+      };
 
-    case 'bottom-right': {
-      left = Viewport.width;
-      top  = Viewport.height;
-      break;
-    }
+    case 'bottom-right':
+      return {
+        left: Viewport.width,
+        top: Viewport.height,
+      };
+    
+    default:
+      return {
+        left: 0,
+        top: 0,
+      };
   }
-
-  return { left, top };
 }
 
 // This returns an offset from element reference point to origin (top-left).
@@ -300,7 +308,6 @@ export function getOffsetFromTargeReferencePointToOrigin(
 ): Offset {
   const { left, top } = target.getBoundingClientRect();
   const offset = getElementOffset(target, referencePoint);
-
   return {
     left: left - offset.left,
     top:  top  - offset.top,
@@ -309,19 +316,21 @@ export function getOffsetFromTargeReferencePointToOrigin(
 
 // Transform offset relation to either document, viewport, or an element.
 export function transformOffsetRelativeTo(offset: Offset, to: OffsetRelation): Offset {
-  let { left, top } = offset;
+  const { left, top } = offset;
 
   if (to === 'document') {
-    left = left + scrollLeft();
-    top  = top + scrollTop();
-  } else if (to === 'viewport') {
-    left = left;
-    top  = top;
-  } else if (isHTMLElement(to)) {
-    const rect = to.getBoundingClientRect();
+    return {
+      left: left + scrollLeft(),
+      top:  top  + scrollTop(),
+    };
+  }
 
-    left = left - rect.left;
-    top  = top  - rect.top;
+  if (isHTMLElement(to)) {
+    const rect = to.getBoundingClientRect();
+    return {
+      left: left - rect.left,
+      top:  top  - rect.top,
+    };
   }
 
   return { left, top };
@@ -333,69 +342,75 @@ export function applySpacingToOffset(
   referencePoint: DOMAlignOffsetReferencePointNames,
   spacing: number,
 ): Offset {
-  let { left, top } = offset;
+  const { left, top } = offset;
 
   if (referencePoint === 'center') {
     return { left, top };
-  } else if (
+  }
+  
+  if (
     DOMAlignOffsetReferenceCornerNames.indexOf(
       referencePoint as DOMAlignOffsetReferenceCornerNames,
     ) !== -1
   ) {
-    let cornerSpacing = calculateCornerSpacing(spacing);
+    const cornerSpacing = calculateCornerSpacing(spacing);
 
     switch (referencePoint) {
-      case 'top-left': {
-        left = left - cornerSpacing;
-        top  = top  - cornerSpacing;
-        break;
-      }
+      case 'top-left': 
+        return {
+          left: left - cornerSpacing,
+          top:  top  - cornerSpacing,
+        };
 
-      case 'top-right': {
-        left = left + cornerSpacing;
-        top  = top  - cornerSpacing;
-        break;
-      }
+      case 'top-right':
+        return {
+          left: left + cornerSpacing,
+          top:  top  - cornerSpacing,
+        };
 
-      case 'bottom-left': {
-        left = left - cornerSpacing;
-        top  = top  + cornerSpacing;
-        break;
-      }
+      case 'bottom-left':
+        return {
+          left: left - cornerSpacing,
+          top:  top  + cornerSpacing,
+        };
 
-      case 'bottom-right': {
-        left = left + cornerSpacing;
-        top  = top  + cornerSpacing;
-        break;
-      }
-    }
-
-    return { left, top };
-  } else {
-    switch (referencePoint) {
-      case 'top': {
-        top = top - spacing;
-        break;
-      }
-
-      case 'bottom': {
-        top = top + spacing;
-        break;
-      }
-
-      case 'left': {
-        left = left - spacing;
-        break;
-      }
-
-      case 'right': {
-        left = left + spacing;
-        break;
-      }
+      case 'bottom-right':
+        return {
+          left: left + cornerSpacing,
+          top:  top  + cornerSpacing,
+        };
     }
 
     return { left, top };
   }
+
+  switch (referencePoint) {
+    case 'top':
+      return {
+        left,
+        top: top - spacing,
+      };
+
+    case 'bottom':
+      return {
+        left,
+        top: top + spacing,
+      };
+
+    case 'left':
+      return {
+        left: left - spacing,
+        top,
+      };
+
+    case 'right':
+      return {
+        left: left + spacing,
+        top,
+      }
+  }
+
+  return { left, top };
 }
 
 export function calculateCornerSpacing(spacing: number): number {

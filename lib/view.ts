@@ -95,7 +95,7 @@ export function getProportionOfElementHeightInView(element: HTMLElement): number
 }
 
 export function getProportionOfElementInView(element: HTMLElement): number {
-  if (elementIsInView(element) === false) {
+  if (!elementIsInView(element)) {
     return 0;
   }
 

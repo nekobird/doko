@@ -1,4 +1,8 @@
 import {
+  isNumber,
+} from '@nekobird/piko';
+
+import {
   Size,
 } from './interfaces';
 
@@ -44,15 +48,12 @@ export function getImageSizeFromSource(
 
     const intervalId = setInterval(
       () => {
-        if (
-          typeof image.naturalWidth === 'number'
-          && typeof image.naturalHeight === 'number'
-        ) {
+        if (isNumber(image.naturalWidth) && isNumber(image.naturalHeight)) {
           clearTimeout(timeoutId);
           clearInterval(intervalId);
 
           resolve({
-            width: image.naturalWidth,
+            width:  image.naturalWidth,
             height: image.naturalHeight,
           });
         }
