@@ -1,6 +1,7 @@
 import {
   kebabCaseToCamelCase,
   sumNumberArrays,
+  toString,
 } from '@nekobird/piko';
 
 import {
@@ -47,16 +48,10 @@ export function applyStyle(
   }
 
   Object.keys(styleObject).forEach(property => {
-    let value = styleObject[property];
-
+    const value = styleObject[property];
     const propertyName = kebabCaseToCamelCase(property);
-
-    if (typeof value === 'number') {
-      value = value.toString();
-    }
-
-    if (typeof value === 'string') {
-      elements.forEach(element => element.style[propertyName] = value);
+    if (value) {
+      elements.forEach(element => element.style[propertyName] = toString(value));
     }
   });
 }
@@ -87,20 +82,16 @@ export function copyStylesFrom(
 export function getAnimationDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.animationDelay;
-
-  if (!value) {
-    return [0];
-  }
-
   return value
-    .split(',')
-    .map(delay => parseFloat(delay) * 1000);
+    ? value
+      .split(',')
+      .map(delay => parseFloat(delay) * 1000)
+    : [0];
 }
 
 export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.animationDuration;
-
   return value
     ? value.split(',').map(duration => parseFloat(duration) * 1000)
     : [0];
@@ -213,8 +204,7 @@ export function getParentsMaxAnimationDuration(
   from: HTMLElement,
   withDelay: boolean = false,
 ): number {
-  let durations: number[] = [];
-
+  const durations: number[] = [];
   ascendFrom(
     from,
     element => {
@@ -222,7 +212,6 @@ export function getParentsMaxAnimationDuration(
         const duration = withDelay
           ? getMaxAnimationDurationWithDelayInSeconds(element)
           : getMaxAnimationDurationInSeconds(element);
-
         durations.push(duration);
       }
     }
@@ -271,7 +260,6 @@ export function getStyleValues(
 export function getTransitionDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.transitionDelay;
-
   return value
     ? value.split(',').map(delay => parseFloat(delay) * 1000)
     : [0];
