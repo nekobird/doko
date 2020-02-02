@@ -179,16 +179,14 @@ export function findElementFromPoint(
     return false;
   }
 
-  let identifyElement;
-
-  identifyElement = typeof identifiyElementFunction === 'undefined'
+  let identifyElement = typeof identifiyElementFunction === 'undefined'
     ? () => true
     : identifiyElementFunction;
 
-  let results: HTMLElement[] = [];
+  const results: HTMLElement[] = [];
 
   elements.forEach(element => {
-    if (identifyElement(element)) {
+    if (identifyElement(element as HTMLElement)) {
       results.push(element as HTMLElement);
     }
   });

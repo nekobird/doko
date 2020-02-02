@@ -218,7 +218,9 @@ export function getSiblings(
       siblings.splice(siblings.indexOf(element), 1);
     }
 
-    return siblings.length > 0 ? siblings : null;
+    return siblings.length > 0
+      ? siblings
+      : null;
   }
 
   return null;
@@ -247,7 +249,9 @@ export function findSibling(
     }
 
     if (results.length > 0) {
-      return getAllMatchingSiblings === true ? results : results[0];
+      return getAllMatchingSiblings === true
+        ? results
+        : results[0];
     }
   }
 

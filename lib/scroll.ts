@@ -40,7 +40,7 @@ export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): 
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  let left = 0;
+  let left  = 0;
   let width = 0;
 
   if (rect) {
@@ -60,7 +60,7 @@ export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): n
   let height = 0;
 
   if (rect) {
-    top = rect.top;
+    top    = rect.top;
     height = rect.height;
   }
 
