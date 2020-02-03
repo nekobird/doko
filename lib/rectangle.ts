@@ -25,16 +25,13 @@ export function getMinimumBoundingRectangleFromElements(...elements: HTMLElement
   };
 
   for (let i = 0; i < elements.length; i++) {
-    const {
-      top, bottom,
-      left, right
-    } = elements[i].getBoundingClientRect();
+    const { top, bottom, left, right } = elements[i].getBoundingClientRect();
 
     if (i === 0) {
-      result.top = top;
+      result.top    = top;
       result.bottom = bottom;
-      result.left = left;
-      result.right = right;
+      result.left   = left;
+      result.right  = right;
     } else {
       if (top < result.top) {
         result.top = top;
