@@ -20,9 +20,7 @@ export function getScrollLeftToElement(...elements: HTMLElement[]): number {
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  return rect
-    ? rect.left + scrollLeft()
-    : 0;
+  return rect ? rect.left + scrollLeft() : 0;
 }
 
 export function getScrollTopToElement(...elements: HTMLElement[]): number {
@@ -30,9 +28,7 @@ export function getScrollTopToElement(...elements: HTMLElement[]): number {
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  return rect
-    ? rect.top + scrollTop()
-    : 0;
+  return rect ? rect.top + scrollTop() : 0;
 }
 
 export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): number {
