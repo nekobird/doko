@@ -20,6 +20,7 @@
   "main": "build/commonjs/doko.js",
   "module": "build/esm/doko.js",
   "jsnext:main": "build/esm/doko.js",
+  "types": "build/types/lib/doko.d.ts",
   "scripts": {
     "build": "tsc --emitDeclarationOnly --outDir build/types/; rollup -c rollup.config.js",
     "build:docs": "typedoc --plugin typedoc-plugin-markdown --out docs lib",
