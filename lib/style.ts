@@ -65,16 +65,12 @@ export function copyStylesFrom(
   properties: string | string[],
   ...to: HTMLElement[]
 ): void {
-  if (typeof properties === 'string') {
-    properties = [properties];
-  }
-
+  const _properties = Array.from(properties);
   const style = window.getComputedStyle(from);
-
-  properties.forEach(property => {
+  _properties.forEach(property => {
     to.forEach(element => {
-      property = kebabCaseToCamelCase(property);
-      element.style[property] = style[property];
+      const _property = kebabCaseToCamelCase(property);
+      element.style[_property] = style[_property];
     });
   });
 }
@@ -83,9 +79,7 @@ export function getAnimationDelaysInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.animationDelay;
   return value
-    ? value
-      .split(',')
-      .map(delay => parseFloat(delay) * 1000)
+    ? value.split(',').map(delay => parseFloat(delay) * 1000)
     : [0];
 }
 
@@ -99,11 +93,7 @@ export function getAnimationDurationsInSeconds(element: HTMLElement): number[] {
 
 export function getBaseFontSize(): number {
   const fontSize = window.getComputedStyle(document.documentElement).fontSize;
-
-  return (
-    typeof fontSize === 'string'
-    && /^[\d]+/g.test(fontSize)
-  )
+  return typeof fontSize === 'string' && /^[\d]+/g.test(fontSize)
     ? parseFloat(fontSize)
     : 16;
 }
@@ -116,16 +106,15 @@ export function getChildrenMaxAnimationDuration(
   from: HTMLElement,
   withDelay: boolean = false,
 ): number {
-  let durations: number[] = [];
+  const durations: number[] = [];
 
   descendFrom(
     from,
     element => {
       if (isHTMLElement(element)) {
-        const duration = withDelay === true
+        const duration = withDelay
           ? getMaxAnimationDurationInSeconds(element)
           : getMaxAnimationDurationWithDelayInSeconds(element);
-
         durations.push(duration);
       }
     }
@@ -141,9 +130,9 @@ export function getFontSize(element: HTMLElement): number {
 export function getLineHeight(element: HTMLElement): number {
   const temp = document.createElement('div');
 
-  temp.style.padding = '0';
+  temp.style.padding    = '0';
   temp.style.visibility = 'none';
-  temp.textContent = 'abcd';
+  temp.textContent      = 'abcd';
 
   copyStylesFrom(
     element,
@@ -239,20 +228,14 @@ export function getStyleValues(
   properties: string | string[],
   stringOnly: boolean = false,
 ): StyleObject {
-  if (typeof properties === 'string') {
-    properties = [properties];
-  }
-
+  const _properties = Array.from(properties);
   const style = window.getComputedStyle(element);
-
-  return properties.reduce((result, property) => {
+  return _properties.reduce((result, property) => {
     const _property = kebabCaseToCamelCase(property);
     const value = style[_property];
-
-    result[_property] = (!stringOnly && /^[\d]+/g.test(value))
+    result[_property] = !stringOnly && /^[\d]+/g.test(value)
       ? parseFloat(value)
       : value;
-
     return result;
   }, {});
 }
@@ -268,7 +251,6 @@ export function getTransitionDelaysInSeconds(element: HTMLElement): number[] {
 export function getTransitionDurationsInSeconds(element: HTMLElement): number[] {
   const computedStyle = getComputedStyle(element);
   const value = computedStyle.transitionDuration;
-
   return value
     ? value.split(',').map(duration => parseFloat(duration) * 1000)
     : [0];
@@ -278,13 +260,10 @@ export function removeStyles(
   element: HTMLElement,
   properties: string | string[],
 ) {
-  if (typeof properties === 'string') {
-    properties = [properties];
-  }
-
-  properties.forEach(property => {
-    property = kebabCaseToCamelCase(property);
-    element.style.removeProperty(property);
+  const _properties = Array.from(properties);
+  _properties.forEach(property => {
+    const _property = kebabCaseToCamelCase(property);
+    element.style.removeProperty(_property);
   });
 }
 
