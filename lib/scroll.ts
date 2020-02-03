@@ -40,13 +40,8 @@ export function getScrollLeftToElementsCenterFrame(...elements: HTMLElement[]): 
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  let left  = 0;
-  let width = 0;
-
-  if (rect) {
-    left  = rect.left;
-    width = rect.width;
-  }
+  const left  = rect ? rect.left  : 0;
+  const width = rect ? rect.width : 0;
 
   return left - (Viewport.width - width) / width + scrollLeft();
 }
@@ -56,13 +51,8 @@ export function getScrollTopToElementsCenterFrame(...elements: HTMLElement[]): n
     ? getMinimumBoundingRectangleFromElements(...elements)
     : elements[0].getBoundingClientRect();
 
-  let top = 0;
-  let height = 0;
-
-  if (rect) {
-    top    = rect.top;
-    height = rect.height;
-  }
+  const top    = rect ? rect.top    : 0;
+  const height = rect ? rect.height : 0;
 
   return top - (Viewport.height - height) / 2 + scrollTop();
 }

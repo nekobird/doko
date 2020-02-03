@@ -249,9 +249,7 @@ export function findSibling(
     }
 
     if (results.length > 0) {
-      return getAllMatchingSiblings === true
-        ? results
-        : results[0];
+      return getAllMatchingSiblings ? results : results[0];
     }
   }
 
